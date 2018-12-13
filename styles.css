@@ -1,0 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul {
+  padding: 5px;
+}
+
+.container {
+  width: 225px;
+}
+
+.header {
+  background: #2b2b2b;
+  color: #eee;
+  padding: 10px;
+}
+
+.appInfo {
+  padding-bottom: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  height: 16px;
+  width: 16px;
+  margin-right: 5px;
+}
