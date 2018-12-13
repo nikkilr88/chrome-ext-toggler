@@ -15,36 +15,39 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log('Mounted')
     this.getApps()
   }
 
   getApps() {
     chrome.runtime.sendMessage({ msg: 'popupReady' }, res => {
       this.setState(() => ({
-        apps: res.userApps.filter(el => el.isApp),
-        extensions: res.userApps.filter(el => !el.isApp)
+        apps: res.userApps.filter(el => el.type === 'hosted_app'),
+        extensions: res.userApps.filter(el => el.type === 'extension')
       }))
     })
   }
 
   render() {
-    console.log(this.state)
+    console.log({ state: this.state })
 
     const extensions = this.state.extensions.map((ext, i) => (
       <AppInfo
-        key={i}
-        // icon={ext.icons[0]}
+        id={ext.id}
+        key={ext.id}
+        icon={ext.icons ? ext.icons[0].url : ''}
         name={ext.name}
         enabled={ext.enabled}
       />
     ))
 
     return (
-      <Fragment>
+      <div className="container">
         <Header />
-        <ul>{extensions}</ul>
-      </Fragment>
+        <ul>
+          <h3>Extensions</h3>
+          {extensions}
+        </ul>
+      </div>
     )
   }
 }
