@@ -24020,7 +24020,9 @@ var _react = _interopRequireDefault(require("react"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Header = function Header() {
-  return _react.default.createElement("div", null, _react.default.createElement("h1", null, "switchr app"), _react.default.createElement("hr", null));
+  return _react.default.createElement("div", {
+    className: "header"
+  }, _react.default.createElement("h2", null, "switchr"));
 };
 
 var _default = Header;
@@ -24039,16 +24041,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var AppInfo = function AppInfo(props) {
   var notEnabled = {
-    color: '#999'
+    opacity: '0.5'
   };
   var enabled = {
-    color: '#333'
+    opacity: '1'
   };
   return _react.default.createElement("li", {
     style: props.enabled ? enabled : notEnabled,
     className: "appInfo",
-    key: props.key
-  }, props.name);
+    key: props.id,
+    id: props.id
+  }, _react.default.createElement("img", {
+    className: "icon",
+    src: props.icon
+  }), props.name);
 };
 
 var _default = AppInfo;
@@ -24111,7 +24117,6 @@ function (_Component) {
   _createClass(App, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      console.log('Mounted');
       this.getApps();
     }
   }, {
@@ -24125,10 +24130,10 @@ function (_Component) {
         _this2.setState(function () {
           return {
             apps: res.userApps.filter(function (el) {
-              return el.isApp;
+              return el.type === 'hosted_app';
             }),
             extensions: res.userApps.filter(function (el) {
-              return !el.isApp;
+              return el.type === 'extension';
             })
           };
         });
@@ -24137,16 +24142,21 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log(this.state);
+      console.log({
+        state: this.state
+      });
       var extensions = this.state.extensions.map(function (ext, i) {
         return _react.default.createElement(_AppInfo.default, {
-          key: i // icon={ext.icons[0]}
-          ,
+          id: ext.id,
+          key: ext.id,
+          icon: ext.icons ? ext.icons[0].url : '',
           name: ext.name,
           enabled: ext.enabled
         });
       });
-      return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Header.default, null), _react.default.createElement("ul", null, extensions));
+      return _react.default.createElement("div", {
+        className: "container"
+      }, _react.default.createElement(_Header.default, null), _react.default.createElement("ul", null, _react.default.createElement("h3", null, "Extensions"), extensions));
     }
   }]);
 
@@ -24194,7 +24204,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53370" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62889" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
