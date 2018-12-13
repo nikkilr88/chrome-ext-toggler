@@ -2,18 +2,21 @@ import React from 'react'
 
 const AppInfo = props => {
   const notEnabled = {
-    color: '#999'
+    opacity: '0.5'
   }
+
   const enabled = {
-    color: '#333'
+    opacity: '1'
   }
 
   return (
     <li
       style={props.enabled ? enabled : notEnabled}
       className="appInfo"
-      key={props.key}
+      key={props.id}
+      id={props.id}
     >
+      <img className="icon" src={props.icon} />
       {props.name}
     </li>
   )
