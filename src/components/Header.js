@@ -2,9 +2,8 @@ import React from 'react'
 
 const Header = () => {
   return (
-    <div>
-      <h1>switchr app</h1>
-      <hr />
+    <div className="header">
+      <h2>switchr</h2>
     </div>
   )
 }
