@@ -13,8 +13,9 @@ const AppInfo = props => {
     <li
       style={props.enabled ? enabled : notEnabled}
       className="appInfo"
-      key={props.id}
-      id={props.id}
+      onClick={() => {
+        props.setEnabled(props.id, !props.enabled, props.index)
+      }}
     >
       <img className="icon" src={props.icon} />
       {props.name}
