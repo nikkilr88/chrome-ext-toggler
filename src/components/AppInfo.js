@@ -11,14 +11,17 @@ const AppInfo = props => {
 
   return (
     <li
-      style={props.enabled ? enabled : notEnabled}
+      style={props.ext.enabled ? enabled : notEnabled}
       className="appInfo"
       onClick={() => {
-        props.setEnabled(props.id, !props.enabled, props.index)
+        props.setEnabled(props.ext.id, !props.ext.enabled, props.index)
       }}
     >
-      <img className="icon" src={props.icon} />
-      {props.name}
+      <img
+        className="icon"
+        src={props.ext.icons ? props.ext.icons[0].url : ''}
+      />
+      {props.ext.name}
     </li>
   )
 }

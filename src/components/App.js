@@ -43,25 +43,15 @@ class App extends Component {
 
   render() {
     const show = {
-      display: 'block',
-      opacity: '1'
+      display: 'block'
     }
 
     const hide = {
-      display: 'none',
-      opacity: '0'
+      display: 'none'
     }
 
     const extensionList = this.state.extensions.map((ext, i) => (
-      <AppInfo
-        id={ext.id}
-        key={i}
-        index={i}
-        icon={ext.icons ? ext.icons[0].url : ''}
-        name={ext.name}
-        enabled={ext.enabled}
-        setEnabled={this.setEnabled}
-      />
+      <AppInfo key={i} index={i} setEnabled={this.setEnabled} ext={ext} />
     ))
 
     return (
