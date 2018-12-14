@@ -24049,8 +24049,11 @@ var AppInfo = function AppInfo(props) {
   return _react.default.createElement("li", {
     style: props.enabled ? enabled : notEnabled,
     className: "appInfo",
-    key: props.id,
-    id: props.id
+    id: props.id,
+    onClick: function onClick() {
+      props.setEnabled(props.id, !props.enabled, props.index);
+      console.log(props.enabled);
+    }
   }, _react.default.createElement("img", {
     className: "icon",
     src: props.icon
@@ -24087,31 +24090,74 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 var App =
 /*#__PURE__*/
 function (_Component) {
   _inherits(App, _Component);
 
-  function App(props) {
+  function App() {
+    var _getPrototypeOf2;
+
     var _this;
+
+    var _temp;
 
     _classCallCheck(this, App);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(App).call(this));
-    _this.state = {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(App)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
       apps: [],
-      extensions: []
-    };
-    _this.getApps = _this.getApps.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    return _this;
+      extensions: [],
+      loading: true
+    }, _this.getApps = function () {
+      chrome.runtime.sendMessage({
+        msg: 'popupReady'
+      }, function (res) {
+        _this.setState(function () {
+          return {
+            apps: res.userApps.filter(function (el) {
+              return el.type === 'hosted_app';
+            }),
+            extensions: res.userApps.sort(function (a, b) {
+              return a.name.localeCompare(b.name);
+            }).filter(function (el) {
+              return el.type === 'extension' && el.name !== 'switchr';
+            }),
+            loading: false
+          };
+        });
+      });
+    }, _this.setEnabled = function (id, enabled, index) {
+      chrome.runtime.sendMessage({
+        msg: 'setEnabled',
+        id: id,
+        enabled: enabled
+      }, function (res) {
+        console.log('sending set enabled message');
+      });
+
+      _this.updateAppState(index, enabled);
+    }, _this.updateAppState = function (index, enabled) {
+      var updatedExtensions = _this.state.extensions;
+      updatedExtensions[index].enabled = enabled;
+
+      _this.setState(function () {
+        return {
+          extensions: updatedExtensions
+        };
+      });
+    }, _temp));
   }
 
   _createClass(App, [{
@@ -24120,43 +24166,35 @@ function (_Component) {
       this.getApps();
     }
   }, {
-    key: "getApps",
-    value: function getApps() {
-      var _this2 = this;
-
-      chrome.runtime.sendMessage({
-        msg: 'popupReady'
-      }, function (res) {
-        _this2.setState(function () {
-          return {
-            apps: res.userApps.filter(function (el) {
-              return el.type === 'hosted_app';
-            }),
-            extensions: res.userApps.filter(function (el) {
-              return el.type === 'extension';
-            })
-          };
-        });
-      });
-    }
-  }, {
     key: "render",
     value: function render() {
-      console.log({
-        state: this.state
-      });
-      var extensions = this.state.extensions.map(function (ext, i) {
+      var _this2 = this;
+
+      var show = {
+        display: 'block',
+        opacity: '1'
+      };
+      var hide = {
+        display: 'none',
+        opacity: '0'
+      };
+      var extensionList = this.state.extensions.map(function (ext, i) {
         return _react.default.createElement(_AppInfo.default, {
           id: ext.id,
-          key: ext.id,
+          key: i,
+          index: i,
           icon: ext.icons ? ext.icons[0].url : '',
           name: ext.name,
-          enabled: ext.enabled
+          enabled: ext.enabled,
+          setEnabled: _this2.setEnabled
         });
       });
       return _react.default.createElement("div", {
-        className: "container"
-      }, _react.default.createElement(_Header.default, null), _react.default.createElement("ul", null, _react.default.createElement("h3", null, "Extensions"), extensions));
+        className: "container",
+        style: this.state.loading ? hide : show
+      }, _react.default.createElement(_Header.default, null), _react.default.createElement("ul", null, _react.default.createElement("h3", {
+        className: "section-title"
+      }, "Extensions"), extensionList));
     }
   }]);
 
@@ -24204,7 +24242,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62889" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51640" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
