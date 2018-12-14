@@ -24007,7 +24007,9 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"src/components/Header.js":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"src/images/logo.png":[function(require,module,exports) {
+module.exports = "/logo.3f342771.png";
+},{}],"src/components/Header.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24017,17 +24019,23 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
+var _logo = _interopRequireDefault(require("../images/logo.png"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Header = function Header() {
   return _react.default.createElement("div", {
     className: "header"
-  }, _react.default.createElement("h2", null, "switchr"));
+  }, _react.default.createElement("img", {
+    className: "logo",
+    src: _logo.default,
+    alt: "logo"
+  }));
 };
 
 var _default = Header;
 exports.default = _default;
-},{"react":"node_modules/react/index.js"}],"src/components/AppInfo.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../images/logo.png":"src/images/logo.png"}],"src/components/AppInfo.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24047,15 +24055,15 @@ var AppInfo = function AppInfo(props) {
     opacity: '1'
   };
   return _react.default.createElement("li", {
-    style: props.enabled ? enabled : notEnabled,
+    style: props.ext.enabled ? enabled : notEnabled,
     className: "appInfo",
     onClick: function onClick() {
-      props.setEnabled(props.id, !props.enabled, props.index);
+      props.setEnabled(props.ext.id, !props.ext.enabled, props.index);
     }
   }, _react.default.createElement("img", {
     className: "icon",
-    src: props.icon
-  }), props.name);
+    src: props.ext.icons ? props.ext.icons[0].url : ''
+  }), props.ext.name);
 };
 
 var _default = AppInfo;
@@ -24169,22 +24177,17 @@ function (_Component) {
       var _this2 = this;
 
       var show = {
-        display: 'block',
-        opacity: '1'
+        display: 'block'
       };
       var hide = {
-        display: 'none',
-        opacity: '0'
+        display: 'none'
       };
       var extensionList = this.state.extensions.map(function (ext, i) {
         return _react.default.createElement(_AppInfo.default, {
-          id: ext.id,
           key: i,
           index: i,
-          icon: ext.icons ? ext.icons[0].url : '',
-          name: ext.name,
-          enabled: ext.enabled,
-          setEnabled: _this2.setEnabled
+          setEnabled: _this2.setEnabled,
+          ext: ext
         });
       });
       return _react.default.createElement("div", {
@@ -24240,7 +24243,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51640" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55754" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

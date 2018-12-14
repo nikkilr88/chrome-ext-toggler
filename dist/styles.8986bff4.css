@@ -5,23 +5,22 @@
 }
 
 ul {
-  padding: 7px;
-}
-
-ul li {
-  cursor: pointer;
-  font-size: 14px;
-  color: #333;
+  padding: 0 5px;
 }
 
 .container {
-  width: 245px;
-  transition: all 1s ease-in;
+  width: 275px;
 }
 
 .header {
   color: #777;
-  padding: 7px 7px 0 7px;
+  padding: 13px;
+}
+
+.logo {
+  display: block;
+  height: 27px;
+  margin: 0 auto;
 }
 
 .section-title {
@@ -29,18 +28,28 @@ ul li {
   background: #3498db;
   border-radius: 3px;
   padding: 3px 5px;
-  margin: 5px 0;
+  margin-bottom: 5px;
   font-size: 14px;
 }
 
 .appInfo {
-  padding-bottom: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  padding: 2px 2px 2px 3px;
   display: flex;
   align-items: center;
+  border-radius: 3px;
+  border-left: 3px solid transparent;
+}
+
+.appInfo:hover {
+  background: #dfdfdf;
+  border-left: 3px solid #c1c1c1;
 }
 
 .icon {
-  height: 18px;
-  width: 18px;
+  height: 16px;
+  width: 16px;
   margin-right: 5px;
 }
