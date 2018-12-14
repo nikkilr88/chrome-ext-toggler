@@ -8,13 +8,21 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       sendResponse({ userApps: data })
     })
     return true
+  } else if (request.msg === 'setEnabled') {
+    setEnabled(request.id, request.enabled)
+    return true
   }
 })
 
-function getApps() {
+const getApps = () => {
   return new Promise((resolve, reject) => {
     chrome.management.getAll(data => {
       return resolve(data)
     })
   })
+}
+
+const setEnabled = (id, enabled) => {
+  console.log(id, enabled)
+  chrome.management.setEnabled(id, enabled)
 }
