@@ -24049,10 +24049,8 @@ var AppInfo = function AppInfo(props) {
   return _react.default.createElement("li", {
     style: props.enabled ? enabled : notEnabled,
     className: "appInfo",
-    id: props.id,
     onClick: function onClick() {
       props.setEnabled(props.id, !props.enabled, props.index);
-      console.log(props.enabled);
     }
   }, _react.default.createElement("img", {
     className: "icon",
