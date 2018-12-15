@@ -28,7 +28,7 @@ const AppInfo = props => {
 
       {props.ext.enabled && props.ext.optionsUrl && (
         <span
-          className="cog"
+          className="cog-wrapper"
           onClick={() => chrome.tabs.create({ url: props.ext.optionsUrl })}
         >
           <img className="cog" src={Cog} alt="settings" />
