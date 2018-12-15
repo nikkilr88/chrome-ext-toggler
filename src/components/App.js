@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import Header from './Header'
 import AppInfo from './AppInfo'
 
@@ -9,6 +9,7 @@ class App extends Component {
     loading: true
   }
 
+  // Get all apps and extensions
   getApps = () => {
     chrome.runtime.sendMessage({ msg: 'popupReady' }, res => {
       this.setState(() => ({
@@ -21,6 +22,7 @@ class App extends Component {
     })
   }
 
+  // Enable and disable extensions
   setEnabled = (id, enabled, index) => {
     chrome.runtime.sendMessage({ msg: 'setEnabled', id, enabled }, res => {
       console.log('sending set enabled message')
@@ -28,6 +30,7 @@ class App extends Component {
     this.updateAppState(index, enabled)
   }
 
+  // Update state with enabled status
   updateAppState = (index, enabled) => {
     const updatedExtensions = this.state.extensions
     updatedExtensions[index].enabled = enabled
@@ -35,6 +38,22 @@ class App extends Component {
     this.setState(() => ({
       extensions: updatedExtensions
     }))
+  }
+
+  // Disable all extensions
+  disableAll = extensions => {
+    const enabled = extensions.filter(ext => ext.enabled)
+
+    for (let el of enabled) {
+      let id = el.id
+      let enabled = false
+      let index = this.state.extensions.findIndex(obj => obj.id === id)
+
+      chrome.runtime.sendMessage({ msg: 'setEnabled', id, enabled }, res => {
+        console.log('sending set enabled message')
+      })
+      this.updateAppState(index, enabled)
+    }
   }
 
   componentDidMount() {
@@ -58,7 +77,16 @@ class App extends Component {
       <div className="container" style={this.state.loading ? hide : show}>
         <Header />
         <ul>
-          <h3 className="section-title">Extensions</h3>
+          <div className="section-title">
+            <h3>Extensions</h3>
+            <span
+              className="turn-off"
+              onClick={() => this.disableAll(this.state.extensions)}
+            >
+              Disable all
+            </span>
+          </div>
+
           {extensionList}
         </ul>
       </div>
