@@ -11,9 +11,9 @@ ul {
 }
 
 .container {
-  width: 275px;
+  min-width: 275px;
   font-family: 'Source Sans Pro';
-  padding-bottom: 10px;
+  padding-bottom: 15px;
 }
 
 /* ============= HEADER ============= */
@@ -74,7 +74,7 @@ ul {
 }
 
 .appInfo:hover .cog {
-  display: block;
+  visibility: visible;
 }
 
 .icon {
@@ -85,13 +85,16 @@ ul {
 
 .name {
   margin-right: auto;
+  white-space: nowrap;
+}
+
+.cog-wrapper {
+  height: 16px;
 }
 
 .cog {
-  display: none;
+  visibility: hidden;
   height: 16px;
-  width: 16px;
-  line-height: 16px;
-  text-align: center;
-  margin-right: 5px;
+  min-width: 16px;
+  padding: 0 3px 0 5px;
 }

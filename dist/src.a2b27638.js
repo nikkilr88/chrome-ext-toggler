@@ -24071,7 +24071,7 @@ var AppInfo = function AppInfo(props) {
   }), _react.default.createElement("span", {
     className: "name"
   }, props.ext.name), props.ext.enabled && props.ext.optionsUrl && _react.default.createElement("span", {
-    className: "cog",
+    className: "cog-wrapper",
     onClick: function onClick() {
       return chrome.tabs.create({
         url: props.ext.optionsUrl
@@ -24182,7 +24182,7 @@ function (_Component) {
           extensions: updatedExtensions
         };
       });
-    }, _this.turnOffAll = function (extensions) {
+    }, _this.disableAll = function (extensions) {
       var enabled = extensions.filter(function (ext) {
         return ext.enabled;
       });
@@ -24244,12 +24244,6 @@ function (_Component) {
     value: function render() {
       var _this2 = this;
 
-      var show = {
-        display: 'block'
-      };
-      var hide = {
-        display: 'none'
-      };
       var extensionList = this.state.extensions.map(function (ext, i) {
         return _react.default.createElement(_AppInfo.default, {
           key: i,
@@ -24258,17 +24252,16 @@ function (_Component) {
           ext: ext
         });
       });
-      return _react.default.createElement("div", {
-        className: "container",
-        style: this.state.loading ? hide : show
+      return _react.default.createElement(_react.Fragment, null, !this.state.loading && _react.default.createElement("div", {
+        className: "container"
       }, _react.default.createElement(_Header.default, null), _react.default.createElement("ul", null, _react.default.createElement("div", {
         className: "section-title"
       }, _react.default.createElement("h3", null, "Extensions"), _react.default.createElement("span", {
         className: "turn-off",
         onClick: function onClick() {
-          return _this2.turnOffAll(_this2.state.extensions);
+          return _this2.disableAll(_this2.state.extensions);
         }
-      }, "Turn off all")), extensionList));
+      }, "Disable all")), extensionList)));
     }
   }]);
 
@@ -24316,7 +24309,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58797" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53928" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
