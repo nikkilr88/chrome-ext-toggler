@@ -1,4 +1,5 @@
 import React from 'react'
+import Cog from '../images/cog.png'
 
 const AppInfo = props => {
   const notEnabled = {
@@ -13,7 +14,8 @@ const AppInfo = props => {
     <li
       style={props.ext.enabled ? enabled : notEnabled}
       className="appInfo"
-      onClick={() => {
+      onClick={e => {
+        if (e.target.classList.contains('cog')) return
         props.setEnabled(props.ext.id, !props.ext.enabled, props.index)
       }}
     >
@@ -21,7 +23,17 @@ const AppInfo = props => {
         className="icon"
         src={props.ext.icons ? props.ext.icons[0].url : ''}
       />
-      {props.ext.name}
+
+      <span className="name">{props.ext.name}</span>
+
+      {props.ext.enabled && props.ext.optionsUrl && (
+        <span
+          className="cog"
+          onClick={() => chrome.tabs.create({ url: props.ext.optionsUrl })}
+        >
+          <img className="cog" src={Cog} alt="settings" />
+        </span>
+      )}
     </li>
   )
 }
