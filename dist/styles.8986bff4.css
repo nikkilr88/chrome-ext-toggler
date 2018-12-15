@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
+
 * {
   margin: 0;
   padding: 0;
@@ -10,8 +12,11 @@ ul {
 
 .container {
   width: 275px;
+  font-family: 'Source Sans Pro';
+  padding-bottom: 10px;
 }
 
+/* ============= HEADER ============= */
 .header {
   color: #777;
   padding: 13px;
@@ -23,15 +28,34 @@ ul {
   margin: 0 auto;
 }
 
+/* ============= SECTION TITLE ============= */
 .section-title {
   color: #fff;
   background: #3498db;
   border-radius: 3px;
   padding: 3px 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 5px;
-  font-size: 14px;
 }
 
+.section-title h3 {
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+.section-title .turn-off {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.section-title .turn-off:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+
+/* ============= APP ROW ============= */
 .appInfo {
   cursor: pointer;
   font-size: 14px;
@@ -41,6 +65,7 @@ ul {
   align-items: center;
   border-radius: 3px;
   border-left: 3px solid transparent;
+  font-size: 1.25em;
 }
 
 .appInfo:hover {
@@ -48,8 +73,25 @@ ul {
   border-left: 3px solid #c1c1c1;
 }
 
+.appInfo:hover .cog {
+  display: block;
+}
+
 .icon {
   height: 16px;
   width: 16px;
+  margin-right: 5px;
+}
+
+.name {
+  margin-right: auto;
+}
+
+.cog {
+  display: none;
+  height: 16px;
+  width: 16px;
+  line-height: 16px;
+  text-align: center;
   margin-right: 5px;
 }

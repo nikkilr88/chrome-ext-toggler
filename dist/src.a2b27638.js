@@ -24035,7 +24035,9 @@ var Header = function Header() {
 
 var _default = Header;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","../images/logo.png":"src/images/logo.png"}],"src/components/AppInfo.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../images/logo.png":"src/images/logo.png"}],"src/images/cog.png":[function(require,module,exports) {
+module.exports = "/cog.3f33089e.png";
+},{}],"src/components/AppInfo.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24044,6 +24046,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
+
+var _cog = _interopRequireDefault(require("../images/cog.png"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24057,18 +24061,32 @@ var AppInfo = function AppInfo(props) {
   return _react.default.createElement("li", {
     style: props.ext.enabled ? enabled : notEnabled,
     className: "appInfo",
-    onClick: function onClick() {
+    onClick: function onClick(e) {
+      if (e.target.classList.contains('cog')) return;
       props.setEnabled(props.ext.id, !props.ext.enabled, props.index);
     }
   }, _react.default.createElement("img", {
     className: "icon",
     src: props.ext.icons ? props.ext.icons[0].url : ''
-  }), props.ext.name);
+  }), _react.default.createElement("span", {
+    className: "name"
+  }, props.ext.name), props.ext.enabled && props.ext.optionsUrl && _react.default.createElement("span", {
+    className: "cog",
+    onClick: function onClick() {
+      return chrome.tabs.create({
+        url: props.ext.optionsUrl
+      });
+    }
+  }, _react.default.createElement("img", {
+    className: "cog",
+    src: _cog.default,
+    alt: "settings"
+  })));
 };
 
 var _default = AppInfo;
 exports.default = _default;
-},{"react":"node_modules/react/index.js"}],"src/components/App.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../images/cog.png":"src/images/cog.png"}],"src/components/App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24125,7 +24143,8 @@ function (_Component) {
     return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(App)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
       apps: [],
       extensions: [],
-      loading: true
+      loading: true // Get all apps and extensions
+
     }, _this.getApps = function () {
       chrome.runtime.sendMessage({
         msg: 'popupReady'
@@ -24163,8 +24182,57 @@ function (_Component) {
           extensions: updatedExtensions
         };
       });
+    }, _this.turnOffAll = function (extensions) {
+      var enabled = extensions.filter(function (ext) {
+        return ext.enabled;
+      });
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        var _loop = function _loop() {
+          var el = _step.value;
+          var id = el.id;
+          var enabled = false;
+
+          var index = _this.state.extensions.findIndex(function (obj) {
+            return obj.id === id;
+          });
+
+          chrome.runtime.sendMessage({
+            msg: 'setEnabled',
+            id: id,
+            enabled: enabled
+          }, function (res) {
+            console.log('sending set enabled message');
+          });
+
+          _this.updateAppState(index, enabled);
+        };
+
+        for (var _iterator = enabled[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          _loop();
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return != null) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
     }, _temp));
-  }
+  } // Enable and disable extensions
+  // Update state with enabled status
+  // Disable all extensions
+
 
   _createClass(App, [{
     key: "componentDidMount",
@@ -24193,9 +24261,14 @@ function (_Component) {
       return _react.default.createElement("div", {
         className: "container",
         style: this.state.loading ? hide : show
-      }, _react.default.createElement(_Header.default, null), _react.default.createElement("ul", null, _react.default.createElement("h3", {
+      }, _react.default.createElement(_Header.default, null), _react.default.createElement("ul", null, _react.default.createElement("div", {
         className: "section-title"
-      }, "Extensions"), extensionList));
+      }, _react.default.createElement("h3", null, "Extensions"), _react.default.createElement("span", {
+        className: "turn-off",
+        onClick: function onClick() {
+          return _this2.turnOffAll(_this2.state.extensions);
+        }
+      }, "Turn off all")), extensionList));
     }
   }]);
 
@@ -24243,7 +24316,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55754" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58797" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
