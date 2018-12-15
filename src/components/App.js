@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import Header from './Header'
 import AppInfo from './AppInfo'
 
@@ -61,35 +61,31 @@ class App extends Component {
   }
 
   render() {
-    const show = {
-      display: 'block'
-    }
-
-    const hide = {
-      display: 'none'
-    }
-
     const extensionList = this.state.extensions.map((ext, i) => (
       <AppInfo key={i} index={i} setEnabled={this.setEnabled} ext={ext} />
     ))
 
     return (
-      <div className="container" style={this.state.loading ? hide : show}>
-        <Header />
-        <ul>
-          <div className="section-title">
-            <h3>Extensions</h3>
-            <span
-              className="turn-off"
-              onClick={() => this.disableAll(this.state.extensions)}
-            >
-              Disable all
-            </span>
-          </div>
+      <Fragment>
+        {!this.state.loading && (
+          <div className="container">
+            <Header />
+            <ul>
+              <div className="section-title">
+                <h3>Extensions</h3>
+                <span
+                  className="turn-off"
+                  onClick={() => this.disableAll(this.state.extensions)}
+                >
+                  Disable all
+                </span>
+              </div>
 
-          {extensionList}
-        </ul>
-      </div>
+              {extensionList}
+            </ul>
+          </div>
+        )}
+      </Fragment>
     )
   }
 }
