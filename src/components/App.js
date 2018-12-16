@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import Header from './Header'
 import AppInfo from './AppInfo'
+import AppInfoWrapper from './AppInfoWrapper'
 
 class App extends Component {
   state = {
@@ -14,9 +15,9 @@ class App extends Component {
     chrome.runtime.sendMessage({ msg: 'popupReady' }, res => {
       this.setState(() => ({
         apps: res.userApps.filter(el => el.type === 'hosted_app'),
-        extensions: res.userApps
-          .sort((a, b) => a.name.localeCompare(b.name))
-          .filter(el => el.type === 'extension' && el.name !== 'switchr'),
+        extensions: this.orderApps(res.userApps).filter(
+          el => el.type === 'extension' && el.name !== 'switchr'
+        ),
         loading: false
       }))
     })
@@ -36,13 +37,13 @@ class App extends Component {
     updatedExtensions[index].enabled = enabled
 
     this.setState(() => ({
-      extensions: updatedExtensions
+      extensions: this.orderApps(updatedExtensions)
     }))
   }
 
   // Disable all extensions
-  disableAll = extensions => {
-    const enabled = extensions.filter(ext => ext.enabled)
+  disableAll = () => {
+    const enabled = this.state.extensions.filter(ext => ext.enabled)
 
     for (let el of enabled) {
       let id = el.id
@@ -56,33 +57,28 @@ class App extends Component {
     }
   }
 
+  // Order extensions and apps by enabled state and name
+  orderApps = extensions => {
+    return extensions
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .sort((a, b) => b.enabled - a.enabled)
+  }
+
   componentDidMount() {
     this.getApps()
   }
 
   render() {
-    const extensionList = this.state.extensions.map((ext, i) => (
-      <AppInfo key={i} index={i} setEnabled={this.setEnabled} ext={ext} />
-    ))
-
     return (
       <Fragment>
         {!this.state.loading && (
           <div className="container">
             <Header />
-            <ul>
-              <div className="section-title">
-                <h3>Extensions</h3>
-                <span
-                  className="turn-off"
-                  onClick={() => this.disableAll(this.state.extensions)}
-                >
-                  Disable all
-                </span>
-              </div>
-
-              {extensionList}
-            </ul>
+            <AppInfoWrapper
+              setEnabled={this.setEnabled}
+              disableAll={this.disableAll}
+              extensions={this.state.extensions}
+            />
           </div>
         )}
       </Fragment>
