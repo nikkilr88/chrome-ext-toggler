@@ -24,7 +24,7 @@ ul {
 
 .logo {
   display: block;
-  height: 27px;
+  height: 30px;
   margin: 0 auto;
 }
 
@@ -111,5 +111,5 @@ ul {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #ccc;
+  background: #d1d1d1;
 }
