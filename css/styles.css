@@ -42,7 +42,7 @@ ul {
 
 .section-title h3 {
   font-size: 1.3em;
-  font-weight: bold;
+  font-weight: normal;
 }
 
 .section-title .turn-off {
@@ -60,7 +60,7 @@ ul {
   cursor: pointer;
   font-size: 14px;
   color: #333;
-  padding: 2px 2px 2px 3px;
+  padding: 3px;
   display: flex;
   align-items: center;
   border-radius: 3px;
@@ -85,7 +85,7 @@ ul {
 
 .name {
   margin-right: auto;
-  white-space: nowrap;
+  /* white-space: nowrap; */
 }
 
 .cog-wrapper {
@@ -96,5 +96,20 @@ ul {
   visibility: hidden;
   height: 16px;
   min-width: 16px;
-  padding: 0 3px 0 5px;
+  padding-left: 5px;
+}
+
+/* Width */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ccc;
 }
