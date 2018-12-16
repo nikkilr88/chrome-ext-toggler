@@ -4,7 +4,7 @@ import AppInfo from './AppInfo'
 class AppInfoWrapper extends Component {
   render() {
     const extensionList = this.props.extensions.map((ext, i) => (
-      <AppInfo key={i} index={i} setEnabled={this.props.setEnabled} ext={ext} />
+      <AppInfo key={i} index={i} ext={ext} setEnabled={this.props.setEnabled} />
     ))
     return (
       <ul>
