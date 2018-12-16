@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react'
 import Header from './Header'
-import AppInfo from './AppInfo'
 import AppInfoWrapper from './AppInfoWrapper'
 
 class App extends Component {
