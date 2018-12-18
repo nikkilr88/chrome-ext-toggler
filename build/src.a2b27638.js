@@ -24037,7 +24037,7 @@ var _default = Header;
 exports.default = _default;
 },{"react":"node_modules/react/index.js","../images/logo-light.png":"src/images/logo-light.png"}],"src/images/cog.png":[function(require,module,exports) {
 module.exports = "/cog.3f33089e.png";
-},{}],"src/components/AppInfo.js":[function(require,module,exports) {
+},{}],"src/components/AppInfo/AppInfo.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24047,7 +24047,7 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
-var _cog = _interopRequireDefault(require("../images/cog.png"));
+var _cog = _interopRequireDefault(require("../../images/cog.png"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24086,200 +24086,7 @@ var AppInfo = function AppInfo(props) {
 
 var _default = AppInfo;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","../images/cog.png":"src/images/cog.png"}],"src/components/AppInfoWrapper.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _AppInfo = _interopRequireDefault(require("./AppInfo"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-var AppInfoWrapper =
-/*#__PURE__*/
-function (_Component) {
-  _inherits(AppInfoWrapper, _Component);
-
-  function AppInfoWrapper() {
-    _classCallCheck(this, AppInfoWrapper);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(AppInfoWrapper).apply(this, arguments));
-  }
-
-  _createClass(AppInfoWrapper, [{
-    key: "render",
-    value: function render() {
-      var _this = this;
-
-      var extensionList = this.props.extensions.map(function (ext, i) {
-        return _react.default.createElement(_AppInfo.default, {
-          key: i,
-          index: i,
-          ext: ext,
-          setEnabled: _this.props.setEnabled
-        });
-      });
-      return _react.default.createElement("ul", null, _react.default.createElement("div", {
-        className: "section-title"
-      }, _react.default.createElement("h3", null, "Extensions"), _react.default.createElement("span", {
-        className: "turn-off",
-        onClick: function onClick() {
-          return _this.props.disableAll();
-        }
-      }, "Disable all")), extensionList);
-    }
-  }]);
-
-  return AppInfoWrapper;
-}(_react.Component);
-
-var _default = AppInfoWrapper;
-exports.default = _default;
-},{"react":"node_modules/react/index.js","./AppInfo":"src/components/AppInfo.js"}],"src/components/App.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _Header = _interopRequireDefault(require("./Header"));
-
-var _AppInfoWrapper = _interopRequireDefault(require("./AppInfoWrapper"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-var App =
-/*#__PURE__*/
-function (_Component) {
-  _inherits(App, _Component);
-
-  function App() {
-    _classCallCheck(this, App);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(App).apply(this, arguments));
-  }
-
-  _createClass(App, [{
-    key: "render",
-    // state = {
-    //   apps: [],
-    //   extensions: [],
-    //   loading: true
-    // }
-    // // Get all apps and extensions
-    // getApps = () => {
-    //   chrome.runtime.sendMessage({ msg: 'popupReady' }, res => {
-    //     this.setState(() => ({
-    //       apps: res.userApps.filter(el => el.type === 'hosted_app'),
-    //       extensions: this.orderApps(res.userApps).filter(
-    //         el => el.type === 'extension' && el.name !== 'switchr'
-    //       ),
-    //       loading: false
-    //     }))
-    //   })
-    // }
-    // // Enable and disable extensions
-    // setEnabled = (id, enabled, index) => {
-    //   chrome.runtime.sendMessage({ msg: 'setEnabled', id, enabled }, res => {
-    //     console.log('sending set enabled message')
-    //   })
-    //   this.updateAppState(index, enabled)
-    // }
-    // // Update state with enabled status
-    // updateAppState = (index, enabled) => {
-    //   const updatedExtensions = this.state.extensions
-    //   updatedExtensions[index].enabled = enabled
-    //   this.setState(() => ({
-    //     extensions: this.orderApps(updatedExtensions)
-    //   }))
-    // }
-    // // Disable all extensions
-    // disableAll = () => {
-    //   const enabled = this.state.extensions.filter(ext => ext.enabled)
-    //   for (let el of enabled) {
-    //     let id = el.id
-    //     let enabled = false
-    //     let index = this.state.extensions.findIndex(obj => obj.id === id)
-    //     chrome.runtime.sendMessage({ msg: 'setEnabled', id, enabled }, res => {
-    //       console.log('sending set enabled message')
-    //     })
-    //     this.updateAppState(index, enabled)
-    //   }
-    // }
-    // // Order extensions and apps by enabled state and name
-    // orderApps = extensions => {
-    //   return extensions
-    //     .sort((a, b) => a.name.localeCompare(b.name))
-    //     .sort((a, b) => b.enabled - a.enabled)
-    // }
-    // componentDidMount() {
-    //   this.getApps()
-    // }
-    value: function render() {
-      return _react.default.createElement(_react.Fragment, null, !this.props.loading && _react.default.createElement("div", {
-        className: "container"
-      }, _react.default.createElement(_Header.default, null), _react.default.createElement(_AppInfoWrapper.default, {
-        setEnabled: this.props.setEnabled,
-        disableAll: this.props.disableAll,
-        extensions: this.props.extensions
-      })));
-    }
-  }]);
-
-  return App;
-}(_react.Component);
-
-var _default = App;
-exports.default = _default;
-},{"react":"node_modules/react/index.js","./Header":"src/components/Header.js","./AppInfoWrapper":"src/components/AppInfoWrapper.js"}],"src/contexts/ExtensionContext.jsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../../images/cog.png":"src/images/cog.png"}],"src/contexts/ExtensionContext.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24434,15 +24241,13 @@ function (_Component) {
 
 
   _createClass(ExtensionProvider, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      this.getApps();
-    }
-  }, {
     key: "render",
     value: function render() {
+      console.log(this.state.extensions);
       return _react.default.createElement(ExtensionContext.Provider, {
         value: _extends({}, this.state, {
+          getApps: this.getApps,
+          orderApps: this.orderApps,
           setEnabled: this.setEnabled,
           updateAppState: this.updateAppState,
           disableAll: this.disableAll
@@ -24455,7 +24260,206 @@ function (_Component) {
 }(_react.Component);
 
 exports.ExtensionProvider = ExtensionProvider;
-},{"react":"node_modules/react/index.js"}],"src/index.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js"}],"src/components/AppInfo/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _AppInfo = _interopRequireDefault(require("./AppInfo"));
+
+var _ExtensionContext = require("../../contexts/ExtensionContext");
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = function _default(props) {
+  return _react.default.createElement(_ExtensionContext.ExtensionContext.Consumer, null, function (_ref) {
+    var setEnabled = _ref.setEnabled;
+    return _react.default.createElement(_AppInfo.default, _extends({}, props, {
+      setEnabled: setEnabled
+    }));
+  });
+};
+
+exports.default = _default;
+},{"react":"node_modules/react/index.js","./AppInfo":"src/components/AppInfo/AppInfo.js","../../contexts/ExtensionContext":"src/contexts/ExtensionContext.jsx"}],"src/components/AppInfoWrapper/AppInfoWrapper.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _AppInfo = _interopRequireDefault(require("../AppInfo"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var AppInfoWrapper =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(AppInfoWrapper, _Component);
+
+  function AppInfoWrapper() {
+    _classCallCheck(this, AppInfoWrapper);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(AppInfoWrapper).apply(this, arguments));
+  }
+
+  _createClass(AppInfoWrapper, [{
+    key: "render",
+    value: function render() {
+      var _this = this;
+
+      var extensionList = this.props.extensions.map(function (ext, i) {
+        return _react.default.createElement(_AppInfo.default, {
+          key: i,
+          index: i,
+          ext: ext
+        });
+      });
+      return _react.default.createElement("ul", null, _react.default.createElement("div", {
+        className: "section-title"
+      }, _react.default.createElement("h3", null, "Extensions"), _react.default.createElement("span", {
+        className: "turn-off",
+        onClick: function onClick() {
+          return _this.props.disableAll();
+        }
+      }, "Disable all")), extensionList);
+    }
+  }]);
+
+  return AppInfoWrapper;
+}(_react.Component);
+
+var _default = AppInfoWrapper;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","../AppInfo":"src/components/AppInfo/index.js"}],"src/components/AppInfoWrapper/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _AppInfoWrapper = _interopRequireDefault(require("./AppInfoWrapper"));
+
+var _ExtensionContext = require("../../contexts/ExtensionContext");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = function _default() {
+  return _react.default.createElement(_ExtensionContext.ExtensionContext.Consumer, null, function (_ref) {
+    var extensions = _ref.extensions,
+        disableAll = _ref.disableAll;
+    return _react.default.createElement(_AppInfoWrapper.default, {
+      extensions: extensions,
+      disableAll: disableAll
+    });
+  });
+};
+
+exports.default = _default;
+},{"react":"node_modules/react/index.js","./AppInfoWrapper":"src/components/AppInfoWrapper/AppInfoWrapper.js","../../contexts/ExtensionContext":"src/contexts/ExtensionContext.jsx"}],"src/components/App.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _Header = _interopRequireDefault(require("./Header"));
+
+var _AppInfoWrapper = _interopRequireDefault(require("./AppInfoWrapper"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var App =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(App, _Component);
+
+  function App() {
+    _classCallCheck(this, App);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(App).apply(this, arguments));
+  }
+
+  _createClass(App, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.getApps();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react.default.createElement(_react.Fragment, null, !this.props.loading && _react.default.createElement("div", {
+        className: "container"
+      }, _react.default.createElement(_Header.default, null), _react.default.createElement("p", {
+        style: {
+          textAlign: 'center'
+        }
+      }, "dev mode"), _react.default.createElement(_AppInfoWrapper.default, null)));
+    }
+  }]);
+
+  return App;
+}(_react.Component);
+
+var _default = App;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","./Header":"src/components/Header.js","./AppInfoWrapper":"src/components/AppInfoWrapper/index.js"}],"src/index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -24470,14 +24474,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _reactDom.default.render(_react.default.createElement(_ExtensionContext.ExtensionProvider, null, _react.default.createElement(_ExtensionContext.ExtensionContext.Consumer, null, function (_ref) {
   var loading = _ref.loading,
-      disableAll = _ref.disableAll,
-      setEnabled = _ref.setEnabled,
-      extensions = _ref.extensions;
+      getApps = _ref.getApps;
   return _react.default.createElement(_App.default, {
     loading: loading,
-    disableAll: disableAll,
-    setEnabled: setEnabled,
-    extensions: extensions
+    getApps: getApps
   });
 })), document.getElementById('root'));
 },{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","./components/App":"src/components/App.js","./contexts/ExtensionContext.jsx":"src/contexts/ExtensionContext.jsx"}],"../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -24507,7 +24507,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53588" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58829" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
