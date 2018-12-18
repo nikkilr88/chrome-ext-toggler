@@ -9,14 +9,7 @@ import {
 ReactDOM.render(
   <ExtensionProvider>
     <ExtensionContext.Consumer>
-      {({ loading, disableAll, setEnabled, extensions }) => (
-        <App
-          loading={loading}
-          disableAll={disableAll}
-          setEnabled={setEnabled}
-          extensions={extensions}
-        />
-      )}
+      {({ loading, getApps }) => <App loading={loading} getApps={getApps} />}
     </ExtensionContext.Consumer>
   </ExtensionProvider>,
   document.getElementById('root')
