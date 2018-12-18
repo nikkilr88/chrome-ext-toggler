@@ -63,15 +63,14 @@ export class ExtensionProvider extends Component {
       .sort((a, b) => b.enabled - a.enabled)
   }
 
-  componentDidMount() {
-    this.getApps()
-  }
-
   render() {
+    console.log(this.state.extensions)
     return (
       <ExtensionContext.Provider
         value={{
           ...this.state,
+          getApps: this.getApps,
+          orderApps: this.orderApps,
           setEnabled: this.setEnabled,
           updateAppState: this.updateAppState,
           disableAll: this.disableAll
