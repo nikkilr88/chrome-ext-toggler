@@ -24063,7 +24063,7 @@ var AppInfo = function AppInfo(props) {
     className: "appInfo",
     onClick: function onClick(e) {
       if (e.target.classList.contains('cog')) return;
-      props.setEnabled(props.ext.id, !props.ext.enabled, props.index);
+      props.setEnabled(props.ext.id, !props.ext.enabled);
     }
   }, _react.default.createElement("img", {
     className: "icon",
@@ -24143,7 +24143,9 @@ function (_Component) {
     return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(ExtensionProvider)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
       apps: [],
       extensions: [],
-      loading: true // Get all apps and extensions
+      loading: true,
+      searchValue: '',
+      showSearch: false // Get all apps and extensions
 
     }, _this.getApps = function () {
       chrome.runtime.sendMessage({
@@ -24170,10 +24172,12 @@ function (_Component) {
         console.log('sending set enabled message');
       });
 
-      _this.updateAppState(index, enabled);
-    }, _this.updateAppState = function (index, enabled) {
+      _this.updateAppState(id, enabled);
+    }, _this.updateAppState = function (id, enabled) {
       var updatedExtensions = _this.state.extensions;
-      updatedExtensions[index].enabled = enabled;
+      updatedExtensions.find(function (obj) {
+        return obj.id === id;
+      }).enabled = enabled;
 
       _this.setState(function () {
         return {
@@ -24190,28 +24194,19 @@ function (_Component) {
       var _iteratorError = undefined;
 
       try {
-        var _loop = function _loop() {
+        for (var _iterator = enabled[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var el = _step.value;
           var id = el.id;
-          var enabled = false;
-
-          var index = _this.state.extensions.findIndex(function (obj) {
-            return obj.id === id;
-          });
-
+          var _enabled = false;
           chrome.runtime.sendMessage({
             msg: 'setEnabled',
             id: id,
-            enabled: enabled
+            enabled: _enabled
           }, function (res) {
             console.log('sending set enabled message');
           });
 
-          _this.updateAppState(index, enabled);
-        };
-
-        for (var _iterator = enabled[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          _loop();
+          _this.updateAppState(id, _enabled);
         }
       } catch (err) {
         _didIteratorError = true;
@@ -24233,6 +24228,21 @@ function (_Component) {
       }).sort(function (a, b) {
         return b.enabled - a.enabled;
       });
+    }, _this.handleSearch = function (e) {
+      var searchValue = e.target.value;
+
+      _this.setState(function () {
+        return {
+          searchValue: searchValue
+        };
+      });
+    }, _this.toggleSearch = function () {
+      _this.setState(function (prevState) {
+        return {
+          searchValue: '',
+          showSearch: !prevState.showSearch
+        };
+      });
     }, _temp));
   } // Enable and disable extensions
   // Update state with enabled status
@@ -24243,14 +24253,15 @@ function (_Component) {
   _createClass(ExtensionProvider, [{
     key: "render",
     value: function render() {
-      console.log(this.state.extensions);
       return _react.default.createElement(ExtensionContext.Provider, {
         value: _extends({}, this.state, {
           getApps: this.getApps,
           orderApps: this.orderApps,
           setEnabled: this.setEnabled,
           updateAppState: this.updateAppState,
-          disableAll: this.disableAll
+          disableAll: this.disableAll,
+          handleSearch: this.handleSearch,
+          toggleSearch: this.toggleSearch
         })
       }, this.props.children);
     }
@@ -24288,7 +24299,7 @@ var _default = function _default(props) {
 };
 
 exports.default = _default;
-},{"react":"node_modules/react/index.js","./AppInfo":"src/components/AppInfo/AppInfo.js","../../contexts/ExtensionContext":"src/contexts/ExtensionContext.jsx"}],"src/components/AppInfoWrapper/AppInfoWrapper.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./AppInfo":"src/components/AppInfo/AppInfo.js","../../contexts/ExtensionContext":"src/contexts/ExtensionContext.jsx"}],"src/components/Search/Search.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24299,6 +24310,120 @@ exports.default = void 0;
 var _react = _interopRequireWildcard(require("react"));
 
 var _AppInfo = _interopRequireDefault(require("../AppInfo"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Search =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Search, _Component);
+
+  function Search() {
+    _classCallCheck(this, Search);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Search).apply(this, arguments));
+  }
+
+  _createClass(Search, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.searchInput.focus();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this = this;
+
+      var _this$props = this.props,
+          handleSearch = _this$props.handleSearch,
+          toggleSearch = _this$props.toggleSearch;
+      return _react.default.createElement("div", {
+        className: "search-wrapper"
+      }, _react.default.createElement("input", {
+        type: "text",
+        onChange: handleSearch,
+        className: "search",
+        spellCheck: false,
+        ref: function ref(input) {
+          _this.searchInput = input;
+        }
+      }), _react.default.createElement("button", {
+        onClick: toggleSearch,
+        className: "close-search"
+      }, "\xD7"));
+    }
+  }]);
+
+  return Search;
+}(_react.Component);
+
+var _default = Search;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","../AppInfo":"src/components/AppInfo/index.js"}],"src/components/Search/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _Search = _interopRequireDefault(require("./Search"));
+
+var _ExtensionContext = require("../../contexts/ExtensionContext");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = function _default() {
+  return _react.default.createElement(_ExtensionContext.ExtensionContext.Consumer, null, function (_ref) {
+    var extensions = _ref.extensions,
+        toggleSearch = _ref.toggleSearch,
+        handleSearch = _ref.handleSearch,
+        searchValue = _ref.searchValue;
+    return _react.default.createElement(_Search.default, {
+      extensions: extensions,
+      handleSearch: handleSearch,
+      searchValue: searchValue,
+      toggleSearch: toggleSearch
+    });
+  });
+};
+
+exports.default = _default;
+},{"react":"node_modules/react/index.js","./Search":"src/components/Search/Search.js","../../contexts/ExtensionContext":"src/contexts/ExtensionContext.jsx"}],"src/components/AppInfoWrapper/AppInfoWrapper.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _AppInfo = _interopRequireDefault(require("../AppInfo"));
+
+var _Search = _interopRequireDefault(require("../Search"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24334,25 +24459,47 @@ function (_Component) {
   }
 
   _createClass(AppInfoWrapper, [{
-    key: "render",
-    value: function render() {
+    key: "componentDidMount",
+    value: function componentDidMount() {
       var _this = this;
 
-      var extensionList = this.props.extensions.map(function (ext, i) {
+      window.addEventListener('keyup', function (e) {
+        if (e.which === 83 && !e.target.classList.contains('search')) {
+          _this.props.toggleSearch();
+        }
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var _this$props = this.props,
+          searchValue = _this$props.searchValue,
+          disableAll = _this$props.disableAll,
+          showSearch = _this$props.showSearch;
+      var searchReg = new RegExp(searchValue, 'gi');
+      var extensionList = this.props.extensions.filter(function (ext) {
+        if (_this2.props.searchValue.length > 0) {
+          if (ext.name.match(searchReg)) {
+            return ext;
+          }
+        } else {
+          return ext;
+        }
+      }).map(function (ext, i) {
         return _react.default.createElement(_AppInfo.default, {
           key: i,
           index: i,
           ext: ext
         });
       });
-      return _react.default.createElement("ul", null, _react.default.createElement("div", {
+      return _react.default.createElement(_react.Fragment, null, _react.default.createElement("div", {
         className: "section-title"
       }, _react.default.createElement("h3", null, "Extensions"), _react.default.createElement("span", {
         className: "turn-off",
-        onClick: function onClick() {
-          return _this.props.disableAll();
-        }
-      }, "Disable all")), extensionList);
+        onClick: disableAll
+      }, "Disable all")), showSearch && _react.default.createElement(_Search.default, null), _react.default.createElement("ul", null, extensionList));
     }
   }]);
 
@@ -24361,7 +24508,7 @@ function (_Component) {
 
 var _default = AppInfoWrapper;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","../AppInfo":"src/components/AppInfo/index.js"}],"src/components/AppInfoWrapper/index.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../AppInfo":"src/components/AppInfo/index.js","../Search":"src/components/Search/index.js"}],"src/components/AppInfoWrapper/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24380,10 +24527,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var _default = function _default() {
   return _react.default.createElement(_ExtensionContext.ExtensionContext.Consumer, null, function (_ref) {
     var extensions = _ref.extensions,
-        disableAll = _ref.disableAll;
+        disableAll = _ref.disableAll,
+        handleSearch = _ref.handleSearch,
+        searchValue = _ref.searchValue,
+        showSearch = _ref.showSearch,
+        toggleSearch = _ref.toggleSearch;
     return _react.default.createElement(_AppInfoWrapper.default, {
       extensions: extensions,
-      disableAll: disableAll
+      disableAll: disableAll,
+      handleSearch: handleSearch,
+      searchValue: searchValue,
+      showSearch: showSearch,
+      toggleSearch: toggleSearch
     });
   });
 };
@@ -24507,7 +24662,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58829" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50079" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
