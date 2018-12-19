@@ -10,9 +10,10 @@ const AppInfo = props => {
     opacity: '1'
   }
 
+  const listStyle = props.ext.enabled ? enabled : notEnabled
+
   return (
     <li
-      style={props.ext.enabled ? enabled : notEnabled}
       className="appInfo"
       onClick={e => {
         if (e.target.classList.contains('cog')) return
@@ -20,11 +21,14 @@ const AppInfo = props => {
       }}
     >
       <img
+        style={listStyle}
         className="icon"
         src={props.ext.icons ? props.ext.icons[0].url : ''}
       />
 
-      <span className="name">{props.ext.name}</span>
+      <span style={listStyle} className="name">
+        {props.ext.name}
+      </span>
 
       {props.ext.enabled && props.ext.optionsUrl && (
         <span
