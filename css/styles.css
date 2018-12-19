@@ -28,11 +28,41 @@ ul {
   margin: 0 auto;
 }
 
+/* ============= SEARCH ============= */
+.search-wrapper {
+  width: 100%;
+  padding: 5px;
+  display: flex;
+}
+
+.search {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #dfdfdf;
+  background: #dfdfdf;
+  border-radius: 3px;
+  flex-grow: 1;
+  margin-right: 3px;
+  outline: none;
+  color: #555;
+}
+
+.close-search {
+  padding: 0 5px;
+  border-radius: 3px;
+  border: 1px solid #dfdfdf;
+  background: #dfdfdf;
+  color: #999;
+  font-weight: bold;
+  cursor: pointer;
+}
+
 /* ============= SECTION TITLE ============= */
 .section-title {
   color: #fff;
   background: #3498db;
   border-radius: 3px;
+  margin: 0 5px;
   padding: 3px 5px;
   display: flex;
   justify-content: space-between;
