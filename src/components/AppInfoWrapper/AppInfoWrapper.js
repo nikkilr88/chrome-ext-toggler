@@ -5,7 +5,7 @@ import Search from '../Search'
 class AppInfoWrapper extends Component {
   componentDidMount() {
     window.addEventListener('keyup', e => {
-      if (e.which === 83 && !e.target.classList.contains('search')) {
+      if (e.ctrlKey && e.which === 83) {
         this.props.toggleSearch()
       }
     })
