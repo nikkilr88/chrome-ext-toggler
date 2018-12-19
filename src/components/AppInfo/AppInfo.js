@@ -16,7 +16,7 @@ const AppInfo = props => {
       className="appInfo"
       onClick={e => {
         if (e.target.classList.contains('cog')) return
-        props.setEnabled(props.ext.id, !props.ext.enabled, props.index)
+        props.setEnabled(props.ext.id, !props.ext.enabled)
       }}
     >
       <img
