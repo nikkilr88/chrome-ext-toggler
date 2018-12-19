@@ -24058,17 +24058,19 @@ var AppInfo = function AppInfo(props) {
   var enabled = {
     opacity: '1'
   };
+  var listStyle = props.ext.enabled ? enabled : notEnabled;
   return _react.default.createElement("li", {
-    style: props.ext.enabled ? enabled : notEnabled,
     className: "appInfo",
     onClick: function onClick(e) {
       if (e.target.classList.contains('cog')) return;
       props.setEnabled(props.ext.id, !props.ext.enabled);
     }
   }, _react.default.createElement("img", {
+    style: listStyle,
     className: "icon",
     src: props.ext.icons ? props.ext.icons[0].url : ''
   }), _react.default.createElement("span", {
+    style: listStyle,
     className: "name"
   }, props.ext.name), props.ext.enabled && props.ext.optionsUrl && _react.default.createElement("span", {
     className: "cog-wrapper",
@@ -24601,11 +24603,7 @@ function (_Component) {
     value: function render() {
       return _react.default.createElement(_react.Fragment, null, !this.props.loading && _react.default.createElement("div", {
         className: "container"
-      }, _react.default.createElement(_Header.default, null), _react.default.createElement("p", {
-        style: {
-          textAlign: 'center'
-        }
-      }, "dev mode"), _react.default.createElement(_AppInfoWrapper.default, null)));
+      }, _react.default.createElement(_Header.default, null), _react.default.createElement(_AppInfoWrapper.default, null)));
     }
   }]);
 
@@ -24662,7 +24660,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50079" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60438" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

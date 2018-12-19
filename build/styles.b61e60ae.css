@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
 
-body {
-  overflow-y: scroll;
-}
-
 * {
   margin: 0;
   padding: 0;
