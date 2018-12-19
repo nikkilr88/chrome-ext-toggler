@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import AppInfo from '../AppInfo'
 
 class Search extends Component {
@@ -19,9 +19,6 @@ class Search extends Component {
             this.searchInput = input
           }}
         />
-        <button onClick={toggleSearch} className="close-search">
-          &times;
-        </button>
       </div>
     )
   }
