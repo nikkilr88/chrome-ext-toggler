@@ -6,7 +6,9 @@ export class ExtensionProvider extends Component {
   state = {
     apps: [],
     extensions: [],
-    loading: true
+    loading: true,
+    searchValue: '',
+    showSearch: false
   }
 
   // Get all apps and extensions
@@ -27,13 +29,13 @@ export class ExtensionProvider extends Component {
     chrome.runtime.sendMessage({ msg: 'setEnabled', id, enabled }, res => {
       console.log('sending set enabled message')
     })
-    this.updateAppState(index, enabled)
+    this.updateAppState(id, enabled)
   }
 
   // Update state with enabled status
-  updateAppState = (index, enabled) => {
+  updateAppState = (id, enabled) => {
     const updatedExtensions = this.state.extensions
-    updatedExtensions[index].enabled = enabled
+    updatedExtensions.find(obj => obj.id === id).enabled = enabled
 
     this.setState(() => ({
       extensions: this.orderApps(updatedExtensions)
@@ -47,12 +49,11 @@ export class ExtensionProvider extends Component {
     for (let el of enabled) {
       let id = el.id
       let enabled = false
-      let index = this.state.extensions.findIndex(obj => obj.id === id)
 
       chrome.runtime.sendMessage({ msg: 'setEnabled', id, enabled }, res => {
         console.log('sending set enabled message')
       })
-      this.updateAppState(index, enabled)
+      this.updateAppState(id, enabled)
     }
   }
 
@@ -63,8 +64,21 @@ export class ExtensionProvider extends Component {
       .sort((a, b) => b.enabled - a.enabled)
   }
 
+  handleSearch = e => {
+    const searchValue = e.target.value
+    this.setState(() => ({
+      searchValue
+    }))
+  }
+
+  toggleSearch = () => {
+    this.setState(prevState => ({
+      searchValue: '',
+      showSearch: !prevState.showSearch
+    }))
+  }
+
   render() {
-    console.log(this.state.extensions)
     return (
       <ExtensionContext.Provider
         value={{
@@ -73,7 +87,9 @@ export class ExtensionProvider extends Component {
           orderApps: this.orderApps,
           setEnabled: this.setEnabled,
           updateAppState: this.updateAppState,
-          disableAll: this.disableAll
+          disableAll: this.disableAll,
+          handleSearch: this.handleSearch,
+          toggleSearch: this.toggleSearch
         }}
       >
         {this.props.children}
