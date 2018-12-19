@@ -24369,10 +24369,7 @@ function (_Component) {
         ref: function ref(input) {
           _this.searchInput = input;
         }
-      }), _react.default.createElement("button", {
-        onClick: toggleSearch,
-        className: "close-search"
-      }, "\xD7"));
+      }));
     }
   }]);
 
@@ -24466,7 +24463,7 @@ function (_Component) {
       var _this = this;
 
       window.addEventListener('keyup', function (e) {
-        if (e.which === 83 && !e.target.classList.contains('search')) {
+        if (e.ctrlKey && e.which === 83) {
           _this.props.toggleSearch();
         }
       });
@@ -24660,7 +24657,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60438" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53080" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

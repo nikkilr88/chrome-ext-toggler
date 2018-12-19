@@ -30,21 +30,33 @@ ul {
 
 /* ============= SEARCH ============= */
 .search-wrapper {
+  position: relative;
   width: 100%;
   padding: 5px;
-  display: flex;
 }
 
 .search {
   width: 100%;
-  padding: 5px;
+  padding: 5px 5px 5px 25px;
   border: 1px solid #dfdfdf;
   background: #dfdfdf;
   border-radius: 3px;
-  flex-grow: 1;
   margin-right: 3px;
   outline: none;
   color: #555;
+}
+
+.search-wrapper:before {
+  content: '';
+  position: absolute;
+  height: 15px;
+  width: 15px;
+  top: 10px;
+  left: 10px;
+  background: url('mag.42d58c3d.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.35;
 }
 
 .close-search {
