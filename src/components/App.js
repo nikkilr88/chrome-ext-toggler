@@ -12,7 +12,6 @@ class App extends Component {
         {!this.props.loading && (
           <div className="container">
             <Header />
-            <p style={{ textAlign: 'center' }}>dev mode</p>
             <AppInfoWrapper />
           </div>
         )}
