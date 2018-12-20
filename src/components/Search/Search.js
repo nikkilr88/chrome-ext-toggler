@@ -6,7 +6,17 @@ class Search extends Component {
     this.searchInput.focus()
   }
   render() {
-    const { handleSearch, toggleSearch } = this.props
+    const { handleSearch, extensions, searchValue } = this.props
+    const searchReg = new RegExp(searchValue, 'gi')
+
+    const searchResults = extensions
+      .filter(ext => {
+        if (ext.name.match(searchReg)) {
+          return ext
+        }
+      })
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .map((ext, i) => <AppInfo key={i} index={i} ext={ext} />)
 
     return (
       <div className="search-wrapper">
@@ -19,6 +29,11 @@ class Search extends Component {
             this.searchInput = input
           }}
         />
+        {searchValue.length > 0 && (
+          <ul className="search-results">
+            {searchResults.length > 0 ? searchResults : <p>No Results :(</p>}
+          </ul>
+        )}
       </div>
     )
   }
