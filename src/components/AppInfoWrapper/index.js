@@ -4,19 +4,10 @@ import { ExtensionContext } from '../../contexts/ExtensionContext'
 
 export default () => (
   <ExtensionContext.Consumer>
-    {({
-      extensions,
-      disableAll,
-      handleSearch,
-      searchValue,
-      showSearch,
-      toggleSearch
-    }) => (
+    {({ extensions, disableAll, showSearch, toggleSearch }) => (
       <AppInfoWrapper
         extensions={extensions}
         disableAll={disableAll}
-        handleSearch={handleSearch}
-        searchValue={searchValue}
         showSearch={showSearch}
         toggleSearch={toggleSearch}
       />
