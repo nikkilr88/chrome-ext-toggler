@@ -24471,19 +24471,20 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
-
       var _this$props = this.props,
           searchValue = _this$props.searchValue,
           disableAll = _this$props.disableAll,
           showSearch = _this$props.showSearch;
       var searchReg = new RegExp(searchValue, 'gi');
-      var extensionList = this.props.extensions.filter(function (ext) {
-        if (_this2.props.searchValue.length > 0) {
-          if (ext.name.match(searchReg)) {
-            return ext;
-          }
-        } else {
+      var extensionList = this.props.extensions.map(function (ext, i) {
+        return _react.default.createElement(_AppInfo.default, {
+          key: i,
+          index: i,
+          ext: ext
+        });
+      });
+      var searchResults = this.props.extensions.filter(function (ext) {
+        if (ext.name.match(searchReg)) {
           return ext;
         }
       }).map(function (ext, i) {
@@ -24493,12 +24494,22 @@ function (_Component) {
           ext: ext
         });
       });
+      var blur = {
+        filter: 'blur(2px)',
+        pointerEvents: 'none'
+      };
       return _react.default.createElement(_react.Fragment, null, _react.default.createElement("div", {
         className: "section-title"
       }, _react.default.createElement("h3", null, "Extensions"), _react.default.createElement("span", {
         className: "turn-off",
         onClick: disableAll
-      }, "Disable all")), showSearch && _react.default.createElement(_Search.default, null), _react.default.createElement("ul", null, extensionList));
+      }, "Disable all")), _react.default.createElement("div", {
+        className: "results-wrapper"
+      }, showSearch && _react.default.createElement(_Search.default, null), searchValue.length > 0 && _react.default.createElement("ul", {
+        className: "search-results"
+      }, searchResults.length > 0 ? searchResults : _react.default.createElement("p", null, "No Results"))), _react.default.createElement("ul", {
+        style: showSearch ? blur : {}
+      }, extensionList));
     }
   }]);
 
@@ -24657,7 +24668,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51576" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53681" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
