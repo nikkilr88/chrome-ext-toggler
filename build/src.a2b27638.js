@@ -24358,7 +24358,22 @@ function (_Component) {
 
       var _this$props = this.props,
           handleSearch = _this$props.handleSearch,
-          toggleSearch = _this$props.toggleSearch;
+          extensions = _this$props.extensions,
+          searchValue = _this$props.searchValue;
+      var searchReg = new RegExp(searchValue, 'gi');
+      var searchResults = extensions.filter(function (ext) {
+        if (ext.name.match(searchReg)) {
+          return ext;
+        }
+      }).sort(function (a, b) {
+        return a.name.localeCompare(b.name);
+      }).map(function (ext, i) {
+        return _react.default.createElement(_AppInfo.default, {
+          key: i,
+          index: i,
+          ext: ext
+        });
+      });
       return _react.default.createElement("div", {
         className: "search-wrapper"
       }, _react.default.createElement("input", {
@@ -24369,7 +24384,9 @@ function (_Component) {
         ref: function ref(input) {
           _this.searchInput = input;
         }
-      }));
+      }), searchValue.length > 0 && _react.default.createElement("ul", {
+        className: "search-results"
+      }, searchResults.length > 0 ? searchResults : _react.default.createElement("p", null, "No Results :(")));
     }
   }]);
 
@@ -24397,14 +24414,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var _default = function _default() {
   return _react.default.createElement(_ExtensionContext.ExtensionContext.Consumer, null, function (_ref) {
     var extensions = _ref.extensions,
-        toggleSearch = _ref.toggleSearch,
         handleSearch = _ref.handleSearch,
         searchValue = _ref.searchValue;
     return _react.default.createElement(_Search.default, {
       extensions: extensions,
       handleSearch: handleSearch,
-      searchValue: searchValue,
-      toggleSearch: toggleSearch
+      searchValue: searchValue
     });
   });
 };
@@ -24472,22 +24487,10 @@ function (_Component) {
     key: "render",
     value: function render() {
       var _this$props = this.props,
-          searchValue = _this$props.searchValue,
           disableAll = _this$props.disableAll,
-          showSearch = _this$props.showSearch;
-      var searchReg = new RegExp(searchValue, 'gi');
-      var extensionList = this.props.extensions.map(function (ext, i) {
-        return _react.default.createElement(_AppInfo.default, {
-          key: i,
-          index: i,
-          ext: ext
-        });
-      });
-      var searchResults = this.props.extensions.filter(function (ext) {
-        if (ext.name.match(searchReg)) {
-          return ext;
-        }
-      }).map(function (ext, i) {
+          showSearch = _this$props.showSearch,
+          extensions = _this$props.extensions;
+      var extensionList = extensions.map(function (ext, i) {
         return _react.default.createElement(_AppInfo.default, {
           key: i,
           index: i,
@@ -24505,9 +24508,7 @@ function (_Component) {
         onClick: disableAll
       }, "Disable all")), _react.default.createElement("div", {
         className: "results-wrapper"
-      }, showSearch && _react.default.createElement(_Search.default, null), searchValue.length > 0 && _react.default.createElement("ul", {
-        className: "search-results"
-      }, searchResults.length > 0 ? searchResults : _react.default.createElement("p", null, "No Results"))), _react.default.createElement("ul", {
+      }, showSearch && _react.default.createElement(_Search.default, null)), _react.default.createElement("ul", {
         style: showSearch ? blur : {}
       }, extensionList));
     }
@@ -24538,15 +24539,11 @@ var _default = function _default() {
   return _react.default.createElement(_ExtensionContext.ExtensionContext.Consumer, null, function (_ref) {
     var extensions = _ref.extensions,
         disableAll = _ref.disableAll,
-        handleSearch = _ref.handleSearch,
-        searchValue = _ref.searchValue,
         showSearch = _ref.showSearch,
         toggleSearch = _ref.toggleSearch;
     return _react.default.createElement(_AppInfoWrapper.default, {
       extensions: extensions,
       disableAll: disableAll,
-      handleSearch: handleSearch,
-      searchValue: searchValue,
       showSearch: showSearch,
       toggleSearch: toggleSearch
     });
@@ -24668,7 +24665,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53681" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56272" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
