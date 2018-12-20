@@ -15,18 +15,22 @@ class AppInfoWrapper extends Component {
     const { searchValue, disableAll, showSearch } = this.props
     const searchReg = new RegExp(searchValue, 'gi')
 
-    const extensionList = this.props.extensions
+    const extensionList = this.props.extensions.map((ext, i) => (
+      <AppInfo key={i} index={i} ext={ext} />
+    ))
+
+    const searchResults = this.props.extensions
       .filter(ext => {
-        if (this.props.searchValue.length > 0) {
-          if (ext.name.match(searchReg)) {
-            return ext
-          }
-        } else {
+        if (ext.name.match(searchReg)) {
           return ext
         }
       })
       .map((ext, i) => <AppInfo key={i} index={i} ext={ext} />)
 
+    const blur = {
+      filter: 'blur(2px)',
+      pointerEvents: 'none'
+    }
     return (
       <Fragment>
         <div className="section-title">
@@ -35,8 +39,16 @@ class AppInfoWrapper extends Component {
             Disable all
           </span>
         </div>
-        {showSearch && <Search />}
-        <ul>{extensionList}</ul>
+        <div className="results-wrapper">
+          {showSearch && <Search />}
+          {searchValue.length > 0 && (
+            <ul className="search-results">
+              {searchResults.length > 0 ? searchResults : <p>No Results</p>}
+            </ul>
+          )}
+        </div>
+
+        <ul style={showSearch ? blur : {}}>{extensionList}</ul>
       </Fragment>
     )
   }
