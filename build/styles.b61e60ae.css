@@ -125,6 +125,11 @@ ul {
   border-left: 3px solid #c1c1c1;
 }
 
+.selected {
+  background: #dfdfdf;
+  border-left: 3px solid #c1c1c1;
+}
+
 .appInfo:hover .cog {
   visibility: visible;
 }

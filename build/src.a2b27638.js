@@ -24045,46 +24045,90 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
 
 var _cog = _interopRequireDefault(require("../../images/cog.png"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var AppInfo = function AppInfo(props) {
-  var notEnabled = {
-    opacity: '0.5'
-  };
-  var enabled = {
-    opacity: '1'
-  };
-  var listStyle = props.ext.enabled ? enabled : notEnabled;
-  return _react.default.createElement("li", {
-    className: "appInfo",
-    onClick: function onClick(e) {
-      if (e.target.classList.contains('cog')) return;
-      props.setEnabled(props.ext.id, !props.ext.enabled);
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var AppInfo =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(AppInfo, _Component);
+
+  function AppInfo() {
+    _classCallCheck(this, AppInfo);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(AppInfo).apply(this, arguments));
+  }
+
+  _createClass(AppInfo, [{
+    key: "render",
+    value: function render() {
+      var _this = this;
+
+      var notEnabled = {
+        opacity: '0.5'
+      };
+      var enabled = {
+        opacity: '1'
+      };
+      var listStyle = this.props.ext.enabled ? enabled : notEnabled;
+      return _react.default.createElement("li", {
+        tabIndex: this.props.tabIndex,
+        className: "appInfo",
+        onClick: function onClick(e) {
+          if (e.target.classList.contains('cog')) return;
+
+          _this.props.setEnabled(_this.props.ext.id, !_this.props.ext.enabled);
+        },
+        onKeyDown: function onKeyDown(e) {
+          return e.which === 13 && _this.props.setEnabled(_this.props.ext.id, !_this.props.ext.enabled);
+        }
+      }, _react.default.createElement("img", {
+        style: listStyle,
+        className: "icon",
+        src: this.props.ext.icons ? this.props.ext.icons[0].url : ''
+      }), _react.default.createElement("span", {
+        style: listStyle,
+        className: "name"
+      }, this.props.ext.name), this.props.ext.enabled && this.props.ext.optionsUrl && _react.default.createElement("span", {
+        className: "cog-wrapper",
+        onClick: function onClick() {
+          return chrome.tabs.create({
+            url: _this.props.ext.optionsUrl
+          });
+        }
+      }, _react.default.createElement("img", {
+        className: "cog",
+        src: _cog.default,
+        alt: "settings"
+      })));
     }
-  }, _react.default.createElement("img", {
-    style: listStyle,
-    className: "icon",
-    src: props.ext.icons ? props.ext.icons[0].url : ''
-  }), _react.default.createElement("span", {
-    style: listStyle,
-    className: "name"
-  }, props.ext.name), props.ext.enabled && props.ext.optionsUrl && _react.default.createElement("span", {
-    className: "cog-wrapper",
-    onClick: function onClick() {
-      return chrome.tabs.create({
-        url: props.ext.optionsUrl
-      });
-    }
-  }, _react.default.createElement("img", {
-    className: "cog",
-    src: _cog.default,
-    alt: "settings"
-  })));
-};
+  }]);
+
+  return AppInfo;
+}(_react.Component);
 
 var _default = AppInfo;
 exports.default = _default;
@@ -24253,6 +24297,17 @@ function (_Component) {
 
 
   _createClass(ExtensionProvider, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      window.addEventListener('keyup', function (e) {
+        if (e.ctrlKey && e.which === 70) {
+          _this2.toggleSearch();
+        }
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       return _react.default.createElement(ExtensionContext.Provider, {
@@ -24341,20 +24396,76 @@ function (_Component) {
   _inherits(Search, _Component);
 
   function Search() {
+    var _getPrototypeOf2;
+
+    var _this;
+
+    var _temp;
+
     _classCallCheck(this, Search);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Search).apply(this, arguments));
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Search)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
+      inputValue: '',
+      currentIndex: -1
+    }, _this.handleChange = function (e) {
+      e.persist();
+
+      _this.props.handleSearch(e);
+
+      _this.setState(function () {
+        return {
+          inputValue: e.target.value,
+          currentIndex: -1
+        };
+      });
+    }, _this.switchFocus = function (e) {
+      var li = _this.ul ? _this.ul.childNodes : [];
+      var arrowKeyPress = e.which === 40 || e.which === 38;
+      var arrowDownPress = e.which === 38 && _this.state.currentIndex >= 0;
+      var arrowUpPress = e.which === 40 && _this.state.currentIndex < li.length - 1;
+
+      _this.setState(function (prevState) {
+        return {
+          currentIndex: arrowDownPress ? prevState.currentIndex + -1 : arrowUpPress ? prevState.currentIndex + 1 : -1
+        };
+      });
+
+      if (arrowKeyPress && _this.state.inputValue.length > 0) {
+        if (_this.state.currentIndex === -1) {
+          _this.searchInput.focus();
+        } else {
+          li[_this.state.currentIndex].focus();
+        }
+      }
+    }, _this.preventScroll = function (e) {
+      if (e.which === 38 || e.which === 40) {
+        e.preventDefault();
+        return false;
+      }
+    }, _temp));
   }
 
   _createClass(Search, [{
     key: "componentDidMount",
     value: function componentDidMount() {
       this.searchInput.focus();
+      document.addEventListener('keydown', this.preventScroll, false);
+      document.addEventListener('keyup', this.switchFocus, false);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      document.removeEventListener('keydown', this.preventScroll, false);
+      document.removeEventListener('keyup', this.switchFocus, false);
     }
   }, {
     key: "render",
     value: function render() {
-      var _this = this;
+      var _this2 = this;
 
       var _this$props = this.props,
           handleSearch = _this$props.handleSearch,
@@ -24371,21 +24482,28 @@ function (_Component) {
         return _react.default.createElement(_AppInfo.default, {
           key: i,
           index: i,
-          ext: ext
+          ext: ext,
+          tabIndex: "1"
         });
       });
       return _react.default.createElement("div", {
         className: "search-wrapper"
       }, _react.default.createElement("input", {
         type: "text",
-        onChange: handleSearch,
+        onChange: function onChange(e) {
+          return _this2.handleChange(e);
+        },
         className: "search",
         spellCheck: false,
+        value: this.state.searchValue,
         ref: function ref(input) {
-          _this.searchInput = input;
+          _this2.searchInput = input;
         }
       }), searchValue.length > 0 && _react.default.createElement("ul", {
-        className: "search-results"
+        className: "search-results",
+        ref: function ref(ul) {
+          return _this2.ul = ul;
+        }
       }, searchResults.length > 0 ? searchResults : _react.default.createElement("p", null, "No Results :(")));
     }
   }]);
@@ -24473,17 +24591,6 @@ function (_Component) {
   }
 
   _createClass(AppInfoWrapper, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this = this;
-
-      window.addEventListener('keyup', function (e) {
-        if (e.ctrlKey && e.which === 83) {
-          _this.props.toggleSearch();
-        }
-      });
-    }
-  }, {
     key: "render",
     value: function render() {
       var _this$props = this.props,
@@ -24539,13 +24646,11 @@ var _default = function _default() {
   return _react.default.createElement(_ExtensionContext.ExtensionContext.Consumer, null, function (_ref) {
     var extensions = _ref.extensions,
         disableAll = _ref.disableAll,
-        showSearch = _ref.showSearch,
-        toggleSearch = _ref.toggleSearch;
+        showSearch = _ref.showSearch;
     return _react.default.createElement(_AppInfoWrapper.default, {
       extensions: extensions,
       disableAll: disableAll,
-      showSearch: showSearch,
-      toggleSearch: toggleSearch
+      showSearch: showSearch
     });
   });
 };
@@ -24665,7 +24770,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56272" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52269" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
