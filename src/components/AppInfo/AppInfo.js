@@ -1,45 +1,54 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Cog from '../../images/cog.png'
 
-const AppInfo = props => {
-  const notEnabled = {
-    opacity: '0.5'
-  }
+class AppInfo extends Component {
+  render() {
+    const notEnabled = {
+      opacity: '0.5'
+    }
 
-  const enabled = {
-    opacity: '1'
-  }
+    const enabled = {
+      opacity: '1'
+    }
 
-  const listStyle = props.ext.enabled ? enabled : notEnabled
+    const listStyle = this.props.ext.enabled ? enabled : notEnabled
 
-  return (
-    <li
-      className="appInfo"
-      onClick={e => {
-        if (e.target.classList.contains('cog')) return
-        props.setEnabled(props.ext.id, !props.ext.enabled)
-      }}
-    >
-      <img
-        style={listStyle}
-        className="icon"
-        src={props.ext.icons ? props.ext.icons[0].url : ''}
-      />
+    return (
+      <li
+        tabIndex={this.props.tabIndex}
+        className="appInfo"
+        onClick={e => {
+          if (e.target.classList.contains('cog')) return
+          this.props.setEnabled(this.props.ext.id, !this.props.ext.enabled)
+        }}
+        onKeyDown={e =>
+          e.which === 13 &&
+          this.props.setEnabled(this.props.ext.id, !this.props.ext.enabled)
+        }
+      >
+        <img
+          style={listStyle}
+          className="icon"
+          src={this.props.ext.icons ? this.props.ext.icons[0].url : ''}
+        />
 
-      <span style={listStyle} className="name">
-        {props.ext.name}
-      </span>
-
-      {props.ext.enabled && props.ext.optionsUrl && (
-        <span
-          className="cog-wrapper"
-          onClick={() => chrome.tabs.create({ url: props.ext.optionsUrl })}
-        >
-          <img className="cog" src={Cog} alt="settings" />
+        <span style={listStyle} className="name">
+          {this.props.ext.name}
         </span>
-      )}
-    </li>
-  )
+
+        {this.props.ext.enabled && this.props.ext.optionsUrl && (
+          <span
+            className="cog-wrapper"
+            onClick={() =>
+              chrome.tabs.create({ url: this.props.ext.optionsUrl })
+            }
+          >
+            <img className="cog" src={Cog} alt="settings" />
+          </span>
+        )}
+      </li>
+    )
+  }
 }
 
 export default AppInfo
