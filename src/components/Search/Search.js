@@ -31,7 +31,9 @@ class Search extends Component {
         ? prevState.currentIndex + -1
         : arrowUpPress
         ? prevState.currentIndex + 1
-        : -1
+        : arrowKeyPress
+        ? -1
+        : prevState.currentIndex
     }))
 
     if (arrowKeyPress && this.state.inputValue.length > 0) {
