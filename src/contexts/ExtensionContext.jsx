@@ -78,6 +78,14 @@ export class ExtensionProvider extends Component {
     }))
   }
 
+  componentDidMount() {
+    window.addEventListener('keyup', e => {
+      if (e.ctrlKey && e.which === 70) {
+        this.toggleSearch()
+      }
+    })
+  }
+
   render() {
     return (
       <ExtensionContext.Provider
