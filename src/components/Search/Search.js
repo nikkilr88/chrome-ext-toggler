@@ -10,6 +10,8 @@ class Search extends Component {
   handleChange = e => {
     e.persist()
 
+    if (/\\/.test(e.target.value)) return
+
     this.props.handleSearch(e)
 
     this.setState(() => ({
@@ -84,7 +86,7 @@ class Search extends Component {
           onChange={e => this.handleChange(e)}
           className="search"
           spellCheck={false}
-          value={this.state.searchValue}
+          value={this.state.inputValue}
           ref={input => {
             this.searchInput = input
           }}
