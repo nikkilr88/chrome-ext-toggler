@@ -35,7 +35,7 @@ const Search = () => {
         className="search"
         spellCheck={false}
         value={inputValue}
-        onChange={e => handleInputChange(e)}
+        onChange={handleInputChange}
       />
       {inputValue.length > 0 && (
         <ul className="search-results">
