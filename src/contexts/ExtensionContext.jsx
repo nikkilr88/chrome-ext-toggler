@@ -6,7 +6,6 @@ export class ExtensionProvider extends Component {
   state = {
     apps: [],
     extensions: [],
-    loading: true,
     searchValue: '',
     showSearch: false
   }
@@ -14,13 +13,13 @@ export class ExtensionProvider extends Component {
   // Get all apps and extensions
   getApps = () => {
     chrome.runtime.sendMessage({ msg: 'popupReady' }, res => {
-      this.setState(() => ({
+      console.log(res)
+      this.setState({
         apps: res.userApps.filter(el => el.type === 'hosted_app'),
         extensions: this.orderApps(res.userApps).filter(
           el => el.type === 'extension' && el.name !== 'switchr'
-        ),
-        loading: false
-      }))
+        )
+      })
     })
   }
 
@@ -64,13 +63,7 @@ export class ExtensionProvider extends Component {
       .sort((a, b) => b.enabled - a.enabled)
   }
 
-  handleSearch = e => {
-    const searchValue = e.target.value
-    this.setState(() => ({
-      searchValue
-    }))
-  }
-
+  // Toggle search visiblity
   toggleSearch = () => {
     this.setState(prevState => ({
       searchValue: '',
@@ -79,6 +72,7 @@ export class ExtensionProvider extends Component {
   }
 
   componentDidMount() {
+    this.getApps()
     window.addEventListener('keyup', e => {
       if (e.ctrlKey && e.which === 70) {
         this.toggleSearch()
