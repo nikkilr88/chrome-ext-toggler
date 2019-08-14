@@ -11,12 +11,9 @@ const Search = () => {
   const handleInputChange = e => {
     e.persist()
 
-    if (/\\/.test(e.target.value)) {
-      console.log('backslash')
-      return
+    if (/^[A-Z\s]*$/i.test(e.target.value)) {
+      setInputValue(e.target.value)
     }
-
-    setInputValue(e.target.value)
   }
 
   useEffect(() => {
