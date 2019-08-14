@@ -1,4 +1,4 @@
-![Switcher Logo](https://ibb.co/0QChRPM)
+![Switcher Logo](/src/images/logo-light.png)
 
 A Chrome extension toggler
 
