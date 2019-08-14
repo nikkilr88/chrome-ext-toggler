@@ -1,4 +1,4 @@
-<img src="/src/images/logo-light.png" alt="alt text" width="150px">
+<img src="/src/images/logo-light.png" alt="switchr logo" width="150px">
 
 A Chrome extension toggler
 
@@ -40,3 +40,9 @@ yarn run build
 4. Click the Chrome menu -> More Tools -> Extensions
 
 5. With developer mode enabled, click “Load unpacked extension” and select the build folder of the project
+
+### Screenshots
+
+<img src="https://i.ibb.co/02JxCXr/Screenshot-4.png" alt="switchr screenshot">
+
+<img src="https://i.ibb.co/dD66H43/Screenshot-5.png" alt="switcher search screenshot" />
