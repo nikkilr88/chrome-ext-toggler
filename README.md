@@ -1,4 +1,4 @@
-![Switcher Logo](/src/images/logo-light.png)
+<img src="/src/images/logo-light.png" alt="alt text" width="150px">
 
 A Chrome extension toggler
 
