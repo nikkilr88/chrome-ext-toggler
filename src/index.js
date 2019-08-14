@@ -8,9 +8,7 @@ import {
 
 ReactDOM.render(
   <ExtensionProvider>
-    <ExtensionContext.Consumer>
-      {({ loading, getApps }) => <App loading={loading} getApps={getApps} />}
-    </ExtensionContext.Consumer>
+    <App />
   </ExtensionProvider>,
   document.getElementById('root')
 )

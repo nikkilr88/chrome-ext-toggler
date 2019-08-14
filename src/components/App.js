@@ -1,23 +1,14 @@
-import React, { Component, Fragment } from 'react'
+import React from 'react'
 import Header from './Header'
-import AppInfoWrapper from './AppInfoWrapper'
+import ExtensionsWrapper from './ExtensionsWrapper/ExtensionsWrapper'
 
-class App extends Component {
-  componentDidMount() {
-    this.props.getApps()
-  }
-  render() {
-    return (
-      <Fragment>
-        {!this.props.loading && (
-          <div className="container">
-            <Header />
-            <AppInfoWrapper />
-          </div>
-        )}
-      </Fragment>
-    )
-  }
+const App = () => {
+  return (
+    <div className="container">
+      <Header />
+      <ExtensionsWrapper />
+    </div>
+  )
 }
 
 export default App
