@@ -40,9 +40,8 @@ export const ExtensionProvider = props => {
       let id = el.id
       let enabled = false
 
-      chrome.runtime.sendMessage({ msg: 'setEnabled', id, enabled }, res => {
-        updateAppState(id, enabled)
-      })
+      chrome.runtime.sendMessage({ msg: 'setEnabled', id, enabled })
+      updateAppState(id, enabled)
     }
   }
 
