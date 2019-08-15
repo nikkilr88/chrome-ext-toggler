@@ -26,3 +26,11 @@ export const StyledTitle = styled.div`
     }
   }
 `
+
+export const StyledExtensionListWrapper = styled.ul`
+  ${({ showSearch }) =>
+    showSearch && {
+      filter: 'blur(2px)',
+      pointerevents: 'none'
+    }}
+`
