@@ -10,6 +10,7 @@ An extension toggler for Chrome
   - _Hooks_
   - _Context API_
 - [Parcel](https://parceljs.org)
+- [Styled Components](https://www.styled-components.com/)
 
 ### Prerequisites
 
