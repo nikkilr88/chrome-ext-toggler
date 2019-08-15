@@ -1,0 +1,19 @@
+{
+  "name": "switchr",
+  "version": "1.0",
+  "description": "Extension toggler",
+  "manifest_version": 2,
+  "icons": {
+    "128": "light-icon.png"
+  },
+  "browser_action": {
+    "default_title": "switchr",
+    "default_popup": "index.html"
+  },
+  "permissions": ["background", "management"],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
+  "web_accessible_resources": ["*.png"]
+}
