@@ -1,49 +1,41 @@
-import React, { Component } from 'react'
+import React, { Component, useState, useEffect } from 'react'
 
 export const ExtensionContext = React.createContext()
 
-export class ExtensionProvider extends Component {
-  state = {
-    apps: [],
-    extensions: [],
-    searchValue: '',
-    showSearch: false
-  }
+export const ExtensionProvider = props => {
+  // const [apps, setApps] = useState([])
+  const [showSearch, setShowSearch] = useState(false)
+  const [extensions, setExtensions] = useState([])
 
   // Get all apps and extensions
-  getApps = () => {
+  const getApps = () => {
     chrome.runtime.sendMessage({ msg: 'popupReady' }, res => {
-      console.log(res)
-      this.setState({
-        apps: res.userApps.filter(el => el.type === 'hosted_app'),
-        extensions: this.orderApps(res.userApps).filter(
+      // setApps(res.userApps.filter(el => el.type === 'hosted_app'))
+      setExtensions(
+        orderApps(res.userApps).filter(
           el => el.type === 'extension' && el.name !== 'switchr'
         )
-      })
+      )
     })
   }
 
   // Enable and disable extensions
-  setEnabled = (id, enabled, index) => {
-    chrome.runtime.sendMessage({ msg: 'setEnabled', id, enabled }, res => {
-      console.log('sending set enabled message')
-    })
-    this.updateAppState(id, enabled)
+  const setEnabled = (id, enabled) => {
+    chrome.runtime.sendMessage({ msg: 'setEnabled', id, enabled })
+    updateAppState(id, enabled)
   }
 
   // Update state with enabled status
-  updateAppState = (id, enabled) => {
-    const updatedExtensions = this.state.extensions
+  const updateAppState = (id, enabled) => {
+    const updatedExtensions = [...extensions]
     updatedExtensions.find(obj => obj.id === id).enabled = enabled
 
-    this.setState(() => ({
-      extensions: this.orderApps(updatedExtensions)
-    }))
+    setExtensions(orderApps(updatedExtensions))
   }
 
   // Disable all extensions
-  disableAll = () => {
-    const enabled = this.state.extensions.filter(ext => ext.enabled)
+  const disableAll = () => {
+    const enabled = extensions.filter(ext => ext.enabled)
 
     for (let el of enabled) {
       let id = el.id
@@ -52,50 +44,41 @@ export class ExtensionProvider extends Component {
       chrome.runtime.sendMessage({ msg: 'setEnabled', id, enabled }, res => {
         console.log('sending set enabled message')
       })
-      this.updateAppState(id, enabled)
+      updateAppState(id, enabled)
     }
   }
 
   // Order extensions and apps by enabled state and name
-  orderApps = extensions => {
-    return extensions
+  const orderApps = prevExtensions => {
+    return prevExtensions
       .sort((a, b) => a.name.localeCompare(b.name))
       .sort((a, b) => b.enabled - a.enabled)
   }
 
   // Toggle search visiblity
-  toggleSearch = () => {
-    this.setState(prevState => ({
-      searchValue: '',
-      showSearch: !prevState.showSearch
-    }))
+  const toggleSearch = event => {
+    if (event.ctrlKey && event.which === 70) {
+      setShowSearch(showSearch => !showSearch)
+    }
   }
 
-  componentDidMount() {
-    this.getApps()
-    window.addEventListener('keyup', e => {
-      if (e.ctrlKey && e.which === 70) {
-        this.toggleSearch()
-      }
-    })
-  }
+  useEffect(() => {
+    getApps()
 
-  render() {
-    return (
-      <ExtensionContext.Provider
-        value={{
-          ...this.state,
-          getApps: this.getApps,
-          orderApps: this.orderApps,
-          setEnabled: this.setEnabled,
-          updateAppState: this.updateAppState,
-          disableAll: this.disableAll,
-          handleSearch: this.handleSearch,
-          toggleSearch: this.toggleSearch
-        }}
-      >
-        {this.props.children}
-      </ExtensionContext.Provider>
-    )
-  }
+    document.addEventListener('keyup', toggleSearch, false)
+  }, [])
+
+  return (
+    <ExtensionContext.Provider
+      value={{
+        showSearch,
+        extensions,
+        disableAll,
+        setEnabled,
+        updateAppState
+      }}
+    >
+      {props.children}
+    </ExtensionContext.Provider>
+  )
 }
