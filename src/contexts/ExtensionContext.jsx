@@ -3,19 +3,18 @@ import React, { Component, useState, useEffect } from 'react'
 export const ExtensionContext = React.createContext()
 
 export const ExtensionProvider = props => {
-  // const [apps, setApps] = useState([])
   const [showSearch, setShowSearch] = useState(false)
   const [extensions, setExtensions] = useState([])
 
   // Get all apps and extensions
   const getApps = () => {
+    // Todo - Add in apps (el.type === 'hosted_app')
     chrome.runtime.sendMessage({ msg: 'popupReady' }, res => {
-      // setApps(res.userApps.filter(el => el.type === 'hosted_app'))
-      setExtensions(
-        orderApps(res.userApps).filter(
-          el => el.type === 'extension' && el.name !== 'switchr'
-        )
+      const extensions = res.userApps.filter(
+        app => app.type === 'extension' && app.name !== 'switchr'
       )
+
+      setExtensions(orderApps(extensions))
     })
   }
 
@@ -28,7 +27,7 @@ export const ExtensionProvider = props => {
   // Update state with enabled status
   const updateAppState = (id, enabled) => {
     const updatedExtensions = [...extensions]
-    updatedExtensions.find(obj => obj.id === id).enabled = enabled
+    updatedExtensions.find(ext => ext.id === id).enabled = enabled
 
     setExtensions(orderApps(updatedExtensions))
   }
@@ -42,13 +41,12 @@ export const ExtensionProvider = props => {
       let enabled = false
 
       chrome.runtime.sendMessage({ msg: 'setEnabled', id, enabled }, res => {
-        console.log('sending set enabled message')
+        updateAppState(id, enabled)
       })
-      updateAppState(id, enabled)
     }
   }
 
-  // Order extensions and apps by enabled state and name
+  // Order extensions and apps by name then enabled state
   const orderApps = prevExtensions => {
     return prevExtensions
       .sort((a, b) => a.name.localeCompare(b.name))
