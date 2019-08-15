@@ -1,6 +1,6 @@
 <img src="/src/images/logo-light.png" alt="switchr logo" width="150px">
 
-A Chrome extension toggler
+An extension toggler for Chrome
 
 ---
 
@@ -9,6 +9,7 @@ A Chrome extension toggler
 - [React](https://reactjs.org/)
   - _Hooks_
   - _Context API_
+- [Parcel](https://parceljs.org)
 
 ### Prerequisites
 
