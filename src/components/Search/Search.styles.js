@@ -39,7 +39,7 @@ export const StyledResults = styled.div`
   background: #fff;
   padding: 10px 0;
 
-  .search-results p {
+  p {
     text-align: center;
     padding: 10px 0;
     color: #999;
