@@ -28,11 +28,63 @@ ul {
   margin: 0 auto;
 }
 
+/* ============= SEARCH ============= */
+.search-wrapper {
+  position: relative;
+  width: 100%;
+  padding: 5px;
+}
+
+.search {
+  width: 100%;
+  padding: 5px 5px 5px 25px;
+  border: 1px solid #dfdfdf;
+  background: #dfdfdf;
+  border-radius: 3px;
+  margin-right: 3px;
+  outline: none;
+  color: #555;
+}
+
+.search-wrapper:before {
+  content: '';
+  position: absolute;
+  height: 15px;
+  width: 15px;
+  top: 10px;
+  left: 10px;
+  background: url('../src/images/mag.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.35;
+}
+
+.results-wrapper {
+  position: absolute;
+  width: 100%;
+  z-index: 999;
+  background: #fff;
+  box-shadow: 0 5px 10px -1px rgba(0, 0, 0, 0.2);
+}
+
+.search-results {
+  background: #fff;
+  padding: 10px 0;
+}
+
+.search-results p {
+  text-align: center;
+  padding: 10px 0;
+  color: #999;
+  font-weight: bold;
+}
+
 /* ============= SECTION TITLE ============= */
 .section-title {
   color: #fff;
   background: #3498db;
   border-radius: 3px;
+  margin: 0 5px;
   padding: 3px 5px;
   display: flex;
   justify-content: space-between;
@@ -69,6 +121,11 @@ ul {
 }
 
 .appInfo:hover {
+  background: #dfdfdf;
+  border-left: 3px solid #c1c1c1;
+}
+
+.selected {
   background: #dfdfdf;
   border-left: 3px solid #c1c1c1;
 }
