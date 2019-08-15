@@ -16,12 +16,14 @@ export const StyledTitle = styled.div`
     font-weight: normal;
   }
 
-  .turn-off {
-    cursor: pointer;
+  button {
+    background: none;
     opacity: 0.5;
+    border: none;
+    color: inherit;
+    cursor: pointer;
 
     &:hover {
-      cursor: pointer;
       opacity: 1;
     }
   }

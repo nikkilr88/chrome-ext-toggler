@@ -18,9 +18,7 @@ const ExtensionsWrapper = () => {
     <Fragment>
       <StyledTitle>
         <h3>Extensions</h3>
-        <span className="turn-off" onClick={disableAll}>
-          Disable all
-        </span>
+        <button onClick={disableAll}>Disable all</button>
       </StyledTitle>
 
       {showSearch && <Search />}
