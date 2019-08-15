@@ -43,6 +43,14 @@ yarn run build
 
 5. With developer mode enabled, click “Load unpacked extension” and select the build folder of the project
 
+### Keyboard Shortcuts
+
+Toggle search
+
+```sh
+ctrl + F
+```
+
 ### Screenshots
 
 <img src="https://i.ibb.co/02JxCXr/Screenshot-4.png" alt="switchr screenshot">
