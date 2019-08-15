@@ -1,11 +1,12 @@
 import React from 'react'
-import LogoLight from '../images/logo-light.png'
+import LogoLight from '../../images/logo-light.png'
+import { StyledHeader } from './Header.styles'
 
 const Header = () => {
   return (
-    <div className="header">
+    <StyledHeader>
       <img className="logo" src={LogoLight} alt="logo" />
-    </div>
+    </StyledHeader>
   )
 }
 

@@ -1,7 +1,8 @@
 import React, { Fragment, useContext } from 'react'
-import ExtensionItem from '../ExtensionItem/ExtensionItem'
+import ExtensionItem from '../ExtensionItem/ExtensionListItem'
 import Search from '../Search/Search'
 import { ExtensionContext } from '../../contexts/ExtensionContext'
+import { StyledTitle } from './ExtensionWrapper.styles'
 
 const ExtensionsWrapper = () => {
   const { disableAll, showSearch, extensions } = useContext(ExtensionContext)
@@ -17,13 +18,13 @@ const ExtensionsWrapper = () => {
 
   return (
     <Fragment>
-      <div className="section-title">
+      <StyledTitle>
         <h3>Extensions</h3>
         <span className="turn-off" onClick={disableAll}>
           Disable all
         </span>
-      </div>
-      <div className="results-wrapper">{showSearch && <Search />}</div>
+      </StyledTitle>
+      {showSearch && <Search />}
       <ul style={showSearch ? blur : null}>{extensionList}</ul>
     </Fragment>
   )
