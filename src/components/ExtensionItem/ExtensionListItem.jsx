@@ -7,14 +7,6 @@ import Cog from '../../images/cog.png'
 const ExtensionItem = ({ tabIndex, ext, index }) => {
   const { setEnabled } = useContext(ExtensionContext)
 
-  const notEnabled = {
-    opacity: '0.5'
-  }
-
-  const enabled = {
-    opacity: '1'
-  }
-
   return (
     <StyledExtensionListItem
       tabIndex={tabIndex}
@@ -30,12 +22,12 @@ const ExtensionItem = ({ tabIndex, ext, index }) => {
       <span className="name">{ext.name}</span>
 
       {ext.enabled && ext.optionsUrl && (
-        <span
+        <i
           className="cog-wrapper"
           onClick={() => chrome.tabs.create({ url: ext.optionsUrl })}
         >
           <img className="cog" src={Cog} alt="settings" />
-        </span>
+        </i>
       )}
     </StyledExtensionListItem>
   )
