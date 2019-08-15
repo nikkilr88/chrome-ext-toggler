@@ -1,4 +1,4 @@
-import React, { Component, Fragment, useContext } from 'react'
+import React, { Fragment, useContext } from 'react'
 import ExtensionItem from '../ExtensionItem/ExtensionItem'
 import Search from '../Search/Search'
 import { ExtensionContext } from '../../contexts/ExtensionContext'
