@@ -31,6 +31,6 @@ export const StyledExtensionListWrapper = styled.ul`
   ${({ showSearch }) =>
     showSearch && {
       filter: 'blur(2px)',
-      pointerevents: 'none'
+      pointerEvents: 'none'
     }}
 `
