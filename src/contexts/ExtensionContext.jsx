@@ -36,8 +36,8 @@ export const ExtensionProvider = props => {
   const disableAll = () => {
     const enabled = extensions.filter(ext => ext.enabled)
 
-    for (let el of enabled) {
-      let id = el.id
+    for (let ext of enabled) {
+      let id = ext.id
       let enabled = false
 
       chrome.runtime.sendMessage({ msg: 'setEnabled', id, enabled })
