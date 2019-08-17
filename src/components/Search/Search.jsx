@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect, useContext } from 'react'
-import ExtensionItem from '../ExtensionItem/ExtensionItem'
+import ExtensionItem from '../ExtensionItem/ExtensionListItem'
 import { ExtensionContext } from '../../contexts/ExtensionContext'
+import { StyledSearchWrapper, StyledResults } from './Search.styles'
 
 const Search = () => {
   const [inputValue, setInputValue] = useState('')
@@ -28,7 +29,7 @@ const Search = () => {
     .map((ext, i) => <ExtensionItem key={i} index={i} ext={ext} tabIndex="1" />)
 
   return (
-    <div className="search-wrapper">
+    <StyledSearchWrapper>
       <input
         type="text"
         ref={inputRef}
@@ -38,11 +39,11 @@ const Search = () => {
         onChange={handleInputChange}
       />
       {inputValue.length > 0 && (
-        <ul className="search-results">
+        <StyledResults>
           {searchResults.length > 0 ? searchResults : <p>No Results :(</p>}
-        </ul>
+        </StyledResults>
       )}
-    </div>
+    </StyledSearchWrapper>
   )
 }
 

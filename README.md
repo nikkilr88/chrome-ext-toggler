@@ -10,6 +10,7 @@ An extension toggler for Chrome
   - _Hooks_
   - _Context API_
 - [Parcel](https://parceljs.org)
+- [Styled Components](https://www.styled-components.com/)
 
 ### Prerequisites
 
@@ -41,6 +42,14 @@ yarn run build
 4. Click the Chrome menu -> More Tools -> Extensions
 
 5. With developer mode enabled, click “Load unpacked extension” and select the build folder of the project
+
+### Keyboard Shortcuts
+
+Toggle search
+
+```sh
+ctrl + F
+```
 
 ### Screenshots
 

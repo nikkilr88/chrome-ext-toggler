@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
 export const ExtensionContext = React.createContext()
 
@@ -36,13 +36,12 @@ export const ExtensionProvider = props => {
   const disableAll = () => {
     const enabled = extensions.filter(ext => ext.enabled)
 
-    for (let el of enabled) {
-      let id = el.id
+    for (let ext of enabled) {
+      let id = ext.id
       let enabled = false
 
-      chrome.runtime.sendMessage({ msg: 'setEnabled', id, enabled }, res => {
-        updateAppState(id, enabled)
-      })
+      chrome.runtime.sendMessage({ msg: 'setEnabled', id, enabled })
+      updateAppState(id, enabled)
     }
   }
 
